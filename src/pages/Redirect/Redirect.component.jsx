@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useMutation } from "react-query";
 import { compose, split, last, map, head } from "ramda";
+import Cookie from "js-cookie";
 import { withRouter, useHistory } from "react-router-dom";
 import Loading from "../../components/Loading/Loading.component";
 import { postAuthorizationCodeRequest } from "./Redirect.request";
@@ -15,24 +16,17 @@ const RedirectComponent = ({ location }) => {
     },
   });
   const history = useHistory();
-  const queryParams = compose(
-    map((q) => split("=", q)),
-    split("&"),
-    last,
-    split("?")
-  )(location.search);
-
-  const code = compose(last, head)(queryParams);
-
-  const stateParam = compose(last, last)(queryParams);
-
   useEffect(() => {
-    if (code) {
-      accessMutation(code);
+    if (location.hash !== "") {
+      Cookie.set("LOGGED_IN", true);
+      // fazer requisição para pegar os dados do usuário e redirecionar para a página de perfil
+      history.push("/my-profile");
     } else {
+      Cookie.set("ERROR", "access_denied");
       history.push("/login");
     }
-  }, [code]);
+  }, []);
+
   return <Loading />;
 };
 
