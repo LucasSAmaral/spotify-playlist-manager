@@ -1,30 +1,31 @@
 import React, { useEffect } from "react";
-import { useMutation } from "react-query";
-import { compose, split, last, map, head } from "ramda";
+import { compose, split, last, map, fromPairs } from "ramda";
 import Cookie from "js-cookie";
 import { withRouter, useHistory } from "react-router-dom";
 import Loading from "../../components/Loading/Loading.component";
-import { postAuthorizationCodeRequest } from "./Redirect.request";
 
 const RedirectComponent = ({ location }) => {
-  const [accessMutation] = useMutation(postAuthorizationCodeRequest, {
-    onSuccess: (data) => {
-      console.log({ data });
-    },
-    onError: (error) => {
-      console.log("Erro", error);
-    },
-  });
   const history = useHistory();
   useEffect(() => {
     if (location.hash !== "") {
-      Cookie.set("LOGGED_IN", true);
-      // fazer requisição para pegar os dados do usuário e redirecionar para a página de perfil
+      const autorizationTokens = compose(
+        fromPairs,
+        map(split("=")),
+        split("&"),
+        last,
+        split("#")
+      )(location.hash);
+      Cookie.set("access_token", autorizationTokens.access_token);
+      Cookie.set("token_type", autorizationTokens.token_type);
+      Cookie.set("access_token_expires_in", autorizationTokens.expires_in);
+      Cookie.set("access_state", autorizationTokens.state);
       history.push("/my-profile");
     } else {
+      Cookie.remove("LOGGED_IN");
       Cookie.set("ERROR", "access_denied");
       history.push("/login");
     }
+    // eslint-disable-next-line
   }, []);
 
   return <Loading />;
