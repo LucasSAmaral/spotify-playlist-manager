@@ -7,7 +7,6 @@ import Login from "./pages/Login/Login.component";
 import MyProfile from "./pages/MyProfile/MyProfile.component";
 
 function App() {
-  const isLoggedIn = Cookie.get("LOGGED_IN");
   const hasAccessToken = Cookie.get("access_token");
   return (
     <>

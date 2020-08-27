@@ -1,3 +1,40 @@
 .my-profile-wrapper {
   color: whitesmoke;
+  width: 100%;
+  height: 100vh;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.my-profile {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.my-profile-image {
+  border-radius: 50%;
+  width: 100%;
+  max-width: 200px;
+  height: 200px;
+  overflow: hidden;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.my-profile-info {
+  padding: 42px;
+  h3 {
+    font-size: 50px;
+  }
+}
+
+.my-profile-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
