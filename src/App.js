@@ -10,19 +10,15 @@ function App() {
   const isLoggedIn = Cookie.get("LOGGED_IN");
   const hasAccessToken = Cookie.get("access_token");
   return (
-    <div>
+    <>
       <Switch>
-        <Route exact path="/">
-          {!isLoggedIn ? <Redirect to="/login" /> : <RedirectComponent />}
-        </Route>
+        <Route exact path="/" component={RedirectComponent} />
         <Route path="/login">
           {hasAccessToken ? <Redirect to="/my-profile" /> : <Login />}
         </Route>
-        <Route path="/my-profile">
-          {!hasAccessToken ? <Redirect to="/login" /> : <MyProfile />}
-        </Route>
+        <Route path="/my-profile" component={MyProfile} />
       </Switch>
-    </div>
+    </>
   );
 }
 

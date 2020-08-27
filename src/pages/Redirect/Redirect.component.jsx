@@ -7,7 +7,9 @@ import Loading from "../../components/Loading/Loading.component";
 const RedirectComponent = ({ location }) => {
   const history = useHistory();
   useEffect(() => {
-    if (location.hash !== "") {
+    Cookie.set("LOGGED_IN", true);
+    const isLoggedIn = Cookie.get("LOGGED_IN");
+    if (isLoggedIn && location.hash !== "") {
       const autorizationTokens = compose(
         fromPairs,
         map(split("=")),
@@ -19,12 +21,10 @@ const RedirectComponent = ({ location }) => {
       Cookie.set("token_type", autorizationTokens.token_type);
       Cookie.set("access_token_expires_in", autorizationTokens.expires_in);
       Cookie.set("access_state", autorizationTokens.state);
-      history.push("/my-profile");
-    } else {
-      Cookie.remove("LOGGED_IN");
-      Cookie.set("ERROR", "access_denied");
-      history.push("/login");
+      return history.push("/my-profile");
     }
+    return history.push("/login");
+
     // eslint-disable-next-line
   }, []);
 
