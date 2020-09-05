@@ -21,7 +21,7 @@ const RedirectComponent = ({ location }) => {
       Cookie.set("token_type", autorizationTokens.token_type);
       Cookie.set("access_token_expires_in", autorizationTokens.expires_in);
       Cookie.set("access_state", autorizationTokens.state);
-      return history.push("/my-profile");
+      return history.push("/my-playlists");
     }
     return history.push("/login");
 
