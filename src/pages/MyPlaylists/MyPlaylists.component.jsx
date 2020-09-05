@@ -23,11 +23,15 @@ const MyPlaylists = () => {
   );
 
   const { my_playlists } = MyPlaylistInfo;
-  console.log("my_playlists", my_playlists);
+
   return (
     <div className="my-playlists">
       <h3>My Playlists</h3>
-      <div className="my-playlists-content">
+      <div
+        className={`my-playlists-content ${
+          status === "loading" ? "loading-content" : ""
+        }`}
+      >
         {my_playlists?.map((playlist) => (
           <div className="my-playlist-item">
             <figure>

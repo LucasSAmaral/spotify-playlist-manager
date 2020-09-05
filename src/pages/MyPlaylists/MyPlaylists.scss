@@ -14,7 +14,15 @@
   margin-top: 50px;
   display: grid;
   gap: 20px;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
+
+  .loading {
+    height: 70vh;
+  }
+
+  &.loading-content {
+    grid-template-columns: 1fr;
+  }
 }
 
 .my-playlist-item {
