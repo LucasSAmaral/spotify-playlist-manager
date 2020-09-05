@@ -2,20 +2,22 @@ import React from "react";
 import Cookie from "js-cookie";
 import { Switch, Route, Redirect } from "react-router-dom";
 import "./App.css";
-import RedirectComponent from "./pages/Redirect/Redirect.component";
 import Login from "./pages/Login/Login.component";
-import MyProfile from "./pages/MyProfile/MyProfile.component";
+import RedirectComponent from "./pages/Redirect/Redirect.component";
+import MyPlaylists from "./pages/MyPlaylists/MyPlaylists.component";
+import Header from "./components/Header/Header.component";
 
 function App() {
   const hasAccessToken = Cookie.get("access_token");
   return (
     <>
+      {hasAccessToken && <Header />}
       <Switch>
         <Route exact path="/" component={RedirectComponent} />
         <Route path="/login">
-          {hasAccessToken ? <Redirect to="/my-profile" /> : <Login />}
+          {hasAccessToken ? <Redirect to="/my-playlists" /> : <Login />}
         </Route>
-        <Route path="/my-profile" component={MyProfile} />
+        <Route path="/my-playlists" component={MyPlaylists} />
       </Switch>
     </>
   );
