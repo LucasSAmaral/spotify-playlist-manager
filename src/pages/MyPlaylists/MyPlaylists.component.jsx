@@ -7,8 +7,7 @@ import { MyPlaylistsExtractor } from "./MyPlaylists.extractor";
 import Loading from "../../components/Loading/Loading.component";
 
 const MyPlaylists = () => {
-  const access_token = Cookie.get("access_token");
-  const token_type = Cookie.get("token_type");
+  const { access_token, token_type } = Cookie.get();
   const [MyPlaylistInfo, setMyPlaylistInfo] = useState({});
   const { status } = useQuery(
     "USER_PLAYLISTS",
@@ -33,7 +32,7 @@ const MyPlaylists = () => {
         }`}
       >
         {my_playlists?.map((playlist) => (
-          <div className="my-playlist-item">
+          <div className="my-playlist-item" key={playlist.id}>
             <figure>
               <img src={playlist.image} alt="" />
             </figure>

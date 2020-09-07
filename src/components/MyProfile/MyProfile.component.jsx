@@ -11,8 +11,7 @@ import ProfileImagePlaceholder from "../../assets/profile-image-placeholder.jpg"
 const MyProfile = () => {
   const history = useHistory();
   const { state, setUserInfo } = useMyProfileContext();
-  const access_token = Cookie.get("access_token");
-  const token_type = Cookie.get("token_type");
+  const { access_token, token_type } = Cookie.get();
   useEffect(() => {
     if (!access_token) {
       history.push("/login");
