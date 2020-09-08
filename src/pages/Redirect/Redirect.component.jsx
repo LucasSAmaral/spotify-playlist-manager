@@ -17,10 +17,13 @@ const RedirectComponent = ({ location }) => {
         last,
         split("#")
       )(location.hash);
-      Cookie.set("access_token", autorizationTokens.access_token);
-      Cookie.set("token_type", autorizationTokens.token_type);
-      Cookie.set("access_token_expires_in", autorizationTokens.expires_in);
-      Cookie.set("access_state", autorizationTokens.state);
+      const autorizationObjectKeys = Object.keys(autorizationTokens);
+      autorizationObjectKeys.map((autorizationObjectKey) =>
+        Cookie.set(
+          `${autorizationObjectKey}`,
+          autorizationTokens[autorizationObjectKey]
+        )
+      );
       return history.push("/my-playlists");
     }
     return history.push("/login");

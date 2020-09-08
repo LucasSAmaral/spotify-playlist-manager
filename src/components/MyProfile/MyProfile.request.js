@@ -1,5 +1,5 @@
 import Axios from "axios";
-import Cookie from "js-cookie";
+import { removeAllCookies } from "../../helpers/removeAllCookies.helper";
 
 export const getUserInfoRequest = async (access_token, token_type) => {
   try {
@@ -13,11 +13,7 @@ export const getUserInfoRequest = async (access_token, token_type) => {
     return data;
   } catch (error) {
     console.log(error);
-    Cookie.remove("LOGGED_IN");
-    Cookie.remove("access_token");
-    Cookie.remove("access_state");
-    Cookie.remove("access_token_expires_in");
-    Cookie.remove("token_type");
+    removeAllCookies();
     window.location = "/login";
   }
 };
