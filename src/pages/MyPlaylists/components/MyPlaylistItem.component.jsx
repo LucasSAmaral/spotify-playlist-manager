@@ -13,7 +13,9 @@ const MyPlaylistItem = ({ image, name, total_tracks, useCover = false }) => {
         </div>
       </div>
       {useCover ? (
-        <div className="my-playlist-item-cover">Edit Playlist</div>
+        <div className="my-playlist-item-cover">
+          <h3>Edit Playlist</h3>
+        </div>
       ) : (
         <></>
       )}

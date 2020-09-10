@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import "./App.css";
 import Login from "./pages/Login/Login.component";
 import RedirectComponent from "./pages/Redirect/Redirect.component";
-import MyPlaylists from "./pages/MyPlaylists/MyPlaylists.component";
+import MyPlaylists from "./pages/MyPlaylists/MyPlaylists.container";
 import Header from "./components/Header/Header.component";
 
 function App() {
