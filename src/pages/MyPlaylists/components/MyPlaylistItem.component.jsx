@@ -1,13 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 
 const MyPlaylistItem = ({ image, name, total_tracks, useCover = false }) => {
-  const [cover, setCover] = useState(false);
   return (
-    <div
-      className="my-playlist-item"
-      onMouseEnter={() => setCover(true)}
-      onMouseLeave={() => setCover(false)}
-    >
+    <div className="my-playlist-item">
       <figure>
         <img src={image} alt="" />
       </figure>
@@ -18,11 +13,7 @@ const MyPlaylistItem = ({ image, name, total_tracks, useCover = false }) => {
         </div>
       </div>
       {useCover ? (
-        <div
-          className={`my-playlist-item-cover ${!cover ? "--cover-hidden" : ""}`}
-        >
-          Edit Playlist
-        </div>
+        <div className="my-playlist-item-cover">Edit Playlist</div>
       ) : (
         <></>
       )}

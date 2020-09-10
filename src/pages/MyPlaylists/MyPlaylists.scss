@@ -40,6 +40,11 @@
       height: 100%;
     }
   }
+  &:hover {
+    .my-playlist-item-cover {
+      animation: slide-in-bottom 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    }
+  }
 
   @for $i from 1 to 100 {
     &:nth-child(#{$i}) {
@@ -84,11 +89,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  animation: slide-in-bottom 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-
-  &.--cover-hidden {
-    animation: slide-out-bottom 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
-  }
+  animation: slide-out-bottom 500ms cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
 }
 
 @keyframes fade-in-bottom {
