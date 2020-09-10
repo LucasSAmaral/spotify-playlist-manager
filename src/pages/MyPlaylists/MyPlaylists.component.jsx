@@ -5,6 +5,7 @@ import Cookie from "js-cookie";
 import { getUserPlayslistRequest } from "./MyPlaylists.request";
 import { MyPlaylistsExtractor } from "./MyPlaylists.extractor";
 import Loading from "../../components/Loading/Loading.component";
+import MyPlaylistItem from "./components/MyPlaylistItem.component";
 
 const MyPlaylists = () => {
   const { access_token, token_type } = Cookie.get();
@@ -32,17 +33,7 @@ const MyPlaylists = () => {
         }`}
       >
         {my_playlists?.map((playlist) => (
-          <div className="my-playlist-item" key={playlist.id}>
-            <figure>
-              <img src={playlist.image} alt="" />
-            </figure>
-            <div className="my-playlist-info">
-              <h3>
-                {playlist.name}
-                <span>{playlist.total_tracks} tracks</span>
-              </h3>
-            </div>
-          </div>
+          <MyPlaylistItem key={playlist.id} {...playlist} useCover />
         )) ?? <Loading />}
       </div>
     </div>
