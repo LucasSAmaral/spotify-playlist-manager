@@ -12,7 +12,7 @@ const MyPlaylists = () => {
   const history = useHistory();
   const { access_token, token_type } = Cookie.get();
   const [MyPlaylistInfo, setMyPlaylistInfo] = useState({});
-  const { status } = useQuery(
+  const { isFetching } = useQuery(
     "USER_PLAYLISTS",
     () => getUserPlayslistRequest(access_token, token_type),
     {
@@ -26,12 +26,14 @@ const MyPlaylists = () => {
 
   const { my_playlists } = MyPlaylistInfo;
 
+  console.log("isFetching", isFetching);
+
   return (
     <div className="my-playlists">
       <h3>My Playlists</h3>
       <div
         className={`my-playlists-content ${
-          status === "loading" ? "loading-content" : ""
+          isFetching ? "loading-content" : ""
         }`}
       >
         {my_playlists?.map((playlist) => (
