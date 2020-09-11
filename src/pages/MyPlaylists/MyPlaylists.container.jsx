@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./MyPlaylists.scss";
 import { useQuery } from "react-query";
+import { withRouter, useHistory } from "react-router-dom";
 import Cookie from "js-cookie";
 import { getUserPlayslistRequest } from "./MyPlaylists.request";
 import { MyPlaylistsExtractor } from "./MyPlaylists.extractor";
@@ -8,6 +9,7 @@ import Loading from "../../components/Loading/Loading.component";
 import MyPlaylistItem from "./components/MyPlaylistItem.component";
 
 const MyPlaylists = () => {
+  const history = useHistory();
   const { access_token, token_type } = Cookie.get();
   const [MyPlaylistInfo, setMyPlaylistInfo] = useState({});
   const { status } = useQuery(
@@ -33,11 +35,16 @@ const MyPlaylists = () => {
         }`}
       >
         {my_playlists?.map((playlist) => (
-          <MyPlaylistItem key={playlist.id} {...playlist} useCover />
+          <MyPlaylistItem
+            onClick={() => history.push(`/playlist/${playlist.id}`)}
+            key={playlist.id}
+            {...playlist}
+            useCover
+          />
         )) ?? <Loading />}
       </div>
     </div>
   );
 };
 
-export default MyPlaylists;
+export default withRouter(MyPlaylists);

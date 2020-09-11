@@ -1,8 +1,14 @@
 import React from "react";
 
-const MyPlaylistItem = ({ image, name, total_tracks, useCover = false }) => {
+const MyPlaylistItem = ({
+  image,
+  name,
+  total_tracks,
+  useCover = false,
+  onClick,
+}) => {
   return (
-    <div className="my-playlist-item">
+    <div className="my-playlist-item" onClick={onClick}>
       <figure>
         <img src={image} alt="" />
       </figure>

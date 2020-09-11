@@ -6,6 +6,7 @@ import Login from "./pages/Login/Login.component";
 import RedirectComponent from "./pages/Redirect/Redirect.component";
 import MyPlaylists from "./pages/MyPlaylists/MyPlaylists.container";
 import Header from "./components/Header/Header.component";
+import Playlist from "./pages/Playlist/Playlist.container";
 
 function App() {
   const [accessToken, setAccessToken] = useState();
@@ -21,6 +22,7 @@ function App() {
           {accessToken ? <Redirect to="/my-playlists" /> : <Login />}
         </Route>
         <Route path="/my-playlists" component={MyPlaylists} />
+        <Route path="/playlist/:id" component={Playlist} />
       </Switch>
     </>
   );
