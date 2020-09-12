@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./MyPlaylists.scss";
 import { useQuery } from "react-query";
-import { withRouter, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Cookie from "js-cookie";
 import { getUserPlayslistRequest } from "./MyPlaylists.request";
 import { MyPlaylistsExtractor } from "./MyPlaylists.extractor";
@@ -47,4 +47,4 @@ const MyPlaylists = () => {
   );
 };
 
-export default withRouter(MyPlaylists);
+export default MyPlaylists;

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { compose, split, last, map, fromPairs } from "ramda";
 import Cookie from "js-cookie";
-import { withRouter, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Loading from "../../components/Loading/Loading.component";
 
 const RedirectComponent = ({ location }) => {
@@ -34,4 +34,4 @@ const RedirectComponent = ({ location }) => {
   return <Loading />;
 };
 
-export default withRouter(RedirectComponent);
+export default RedirectComponent;
