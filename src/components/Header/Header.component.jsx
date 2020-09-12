@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import "./Header.scss";
 import MyProfile from "../MyProfile/MyProfile.component";
 
@@ -10,4 +11,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default withRouter(Header);
