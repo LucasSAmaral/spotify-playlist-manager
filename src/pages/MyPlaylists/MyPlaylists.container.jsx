@@ -26,8 +26,6 @@ const MyPlaylists = () => {
 
   const { my_playlists } = MyPlaylistInfo;
 
-  console.log("isFetching", isFetching);
-
   return (
     <div className="my-playlists">
       <h3>My Playlists</h3>
