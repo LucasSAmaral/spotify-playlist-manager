@@ -1,0 +1,11 @@
+@mixin app-page-default-style {
+  width: 100%;
+  margin-top: 60px;
+  color: whitesmoke;
+  padding: 30px;
+  h3 {
+    font-size: 50px;
+    border-bottom: 2px ridge #ffffff;
+    padding-bottom: 10px;
+  }
+}

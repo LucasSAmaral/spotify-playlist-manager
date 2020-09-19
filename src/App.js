@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Cookie from "js-cookie";
 import { Switch, Route, Redirect } from "react-router-dom";
-import "./App.css";
 import Login from "./pages/Login/Login.component";
 import RedirectComponent from "./pages/Redirect/Redirect.component";
 import MyPlaylists from "./pages/MyPlaylists/MyPlaylists.container";

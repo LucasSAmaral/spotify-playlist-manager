@@ -1,13 +1,7 @@
+@import "../../Mixins.scss";
+
 .my-playlists {
-  width: 100%;
-  margin-top: 60px;
-  color: whitesmoke;
-  padding: 30px;
-  h3 {
-    font-size: 50px;
-    border-bottom: 2px ridge #ffffff;
-    padding-bottom: 10px;
-  }
+  @include app-page-default-style;
 }
 
 .my-playlists-content {
@@ -93,6 +87,8 @@
 
   h3 {
     color: #1db954;
+    border: none;
+    font-size: 30px;
   }
 }
 

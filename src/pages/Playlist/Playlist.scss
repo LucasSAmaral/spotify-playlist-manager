@@ -1,0 +1,5 @@
+@import "../../Mixins.scss";
+
+.playlist {
+  @include app-page-default-style;
+}
