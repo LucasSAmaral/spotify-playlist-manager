@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { getPlaylistRequest } from "./Playlist.request";
 import { useQuery } from "react-query";
 import { PlaylistExtractor } from "./Playlist.extractor";
-import TextLoading from "../../components/TextLoading/TextLoading.component";
 
 const Playlist = () => {
   const { id } = useParams();
