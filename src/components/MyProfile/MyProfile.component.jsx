@@ -27,24 +27,38 @@ const MyProfile = () => {
   });
   const { display_name, profile_image } = state;
 
-  const ProfileImage = {
-    loading: ProfileImagePlaceholder,
-    idle: ProfileImagePlaceholder,
-    success: profile_image,
+  const ProfileImage = (status) => {
+    switch (status) {
+      case "loading":
+      case "idle":
+        return ProfileImagePlaceholder;
+
+      case "success":
+        return profile_image;
+
+      default:
+    }
   };
 
-  const UserName = {
-    loading: <div className="text-loading" />,
-    idle: <div className="text-loading" />,
-    success: <h3>{display_name}</h3>,
+  const UserName = (status) => {
+    switch (status) {
+      case "loading":
+      case "idle":
+        return <div className="text-loading" />;
+
+      case "success":
+        return <h3>{display_name}</h3>;
+
+      default:
+    }
   };
 
   return (
     <div className="my-profile">
       <figure className="my-profile-image">
-        <img src={ProfileImage[status]} alt="" />
+        <img src={ProfileImage(status)} alt="" />
       </figure>
-      <div className="my-profile-info">{UserName[status]}</div>
+      <div className="my-profile-info">{UserName(status)}</div>
     </div>
   );
 };
