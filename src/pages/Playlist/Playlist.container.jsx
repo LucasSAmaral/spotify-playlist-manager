@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { getPlaylistRequest } from "./Playlist.request";
 import { useQuery } from "react-query";
 import { PlaylistExtractor } from "./Playlist.extractor";
+import TextLoading from "../../components/TextLoading/TextLoading.component";
 
 const Playlist = () => {
   const { id } = useParams();
@@ -18,7 +19,9 @@ const Playlist = () => {
 
   return (
     <div className="playlist">
-      <h3>{PlaylistInfo?.name ?? "Loading"}</h3>
+      <h3>
+        {PlaylistInfo?.name ?? <TextLoading width="100%" height="50px" />}
+      </h3>
 
       <div className="playlist-info">
         <figure>

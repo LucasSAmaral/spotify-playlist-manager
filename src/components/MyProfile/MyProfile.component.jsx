@@ -7,6 +7,7 @@ import { getUserInfoRequest } from "./MyProfile.request";
 import { myProfileExtractor } from "./MyProfile.extractor";
 import { useHistory } from "react-router-dom";
 import ProfileImagePlaceholder from "../../assets/profile-image-placeholder.jpg";
+import TextLoading from "../TextLoading/TextLoading.component";
 
 const MyProfile = () => {
   const history = useHistory();
@@ -44,7 +45,7 @@ const MyProfile = () => {
     switch (status) {
       case "loading":
       case "idle":
-        return <div className="text-loading" />;
+        return <TextLoading width="110px" height="18px" />;
 
       case "success":
         return <h3>{display_name}</h3>;
