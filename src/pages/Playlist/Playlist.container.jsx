@@ -19,9 +19,7 @@ const Playlist = () => {
 
   return (
     <div className="playlist">
-      <h3>
-        {PlaylistInfo?.name ?? <TextLoading width="100%" height="50px" />}
-      </h3>
+      <h3>{PlaylistInfo?.name ?? "Loading"}</h3>
 
       <div className="playlist-info">
         <figure>
