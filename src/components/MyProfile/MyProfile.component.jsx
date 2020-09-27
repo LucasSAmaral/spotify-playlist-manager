@@ -11,24 +11,20 @@ import ProfileImagePlaceholder from "../../assets/profile-image-placeholder.jpg"
 const MyProfile = () => {
   const history = useHistory();
   const { state, setUserInfo } = useMyProfileContext();
-  const { access_token, token_type } = Cookie.get();
+  const { access_token } = Cookie.get();
   useEffect(() => {
     if (!access_token) {
       history.push("/login");
     }
     // eslint-disable-next-line
   }, []);
-  const { status } = useQuery(
-    "USER_INFO",
-    () => getUserInfoRequest(access_token, token_type),
-    {
-      onSuccess: (userInfo) => {
-        const extractedUserInfo = myProfileExtractor(userInfo);
-        setUserInfo({ ...extractedUserInfo });
-      },
-      refetchOnWindowFocus: false,
-    }
-  );
+  const { status } = useQuery("USER_INFO", getUserInfoRequest, {
+    onSuccess: (userInfo) => {
+      const extractedUserInfo = myProfileExtractor(userInfo);
+      setUserInfo({ ...extractedUserInfo });
+    },
+    refetchOnWindowFocus: false,
+  });
   const { display_name, profile_image } = state;
 
   const ProfileImage = {

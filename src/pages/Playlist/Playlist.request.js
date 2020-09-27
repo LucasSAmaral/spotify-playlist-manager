@@ -1,13 +1,16 @@
 import Axios from "axios";
 import { removeAllCookies } from "../../helpers/removeAllCookies.helper";
+import { getHeadersAuthorization } from "../../helpers/getHeadersAuthorization.helper";
 
-export const getPlaylistRequest = async (access_token, token_type, id) => {
+export const getPlaylistRequest = async (id) => {
+  const { Authorization } = getHeadersAuthorization();
+
   try {
     const { data } = await Axios({
       method: "GET",
       url: `https://api.spotify.com/v1/playlists/${id}`,
       headers: {
-        Authorization: `${token_type} ${access_token}`,
+        Authorization,
       },
     });
     return data;
