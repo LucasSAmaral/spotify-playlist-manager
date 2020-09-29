@@ -3,3 +3,31 @@
 .playlist {
   @include app-page-default-style;
 }
+
+.playlist-info {
+  margin-top: 50px;
+  display: flex;
+
+  figure {
+    min-width: 320px;
+    max-width: 320px;
+    height: 320px;
+
+    margin-right: 50px;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.playlist-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  h2 {
+    margin-bottom: 30px;
+  }
+}
