@@ -1,5 +1,6 @@
 .text-loading {
   border-radius: 20px;
+  min-width: var(--min-width);
   width: var(--width);
   height: var(--height);
   animation-duration: 1s;
