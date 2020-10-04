@@ -1,7 +1,7 @@
 import React from "react";
 import AudioPreview from "./AudioPreview";
 
-const PlaylistItem = ({ track, index, header = false }) => {
+const PlaylistItem = ({ track, header = false }) => {
   if (header) {
     return (
       <li className="track-list-item header">
@@ -12,7 +12,7 @@ const PlaylistItem = ({ track, index, header = false }) => {
     );
   }
   return (
-    <li key={index} className="track-list-item">
+    <li className="track-list-item">
       <div className="track-list-item-title">
         <div className="track-list-item-wrapper">
           <figure>

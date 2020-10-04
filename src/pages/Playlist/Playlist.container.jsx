@@ -44,7 +44,7 @@ const Playlist = () => {
       <ul className="tracks-list">
         <PlaylistItem header />
         {PlaylistInfo.tracks?.map((track, index) => (
-          <PlaylistItem track={track} index={index} />
+          <PlaylistItem track={track} key={index} />
         ))}
       </ul>
     </div>
