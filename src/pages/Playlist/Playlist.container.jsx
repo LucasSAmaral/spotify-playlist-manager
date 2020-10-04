@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import "./Playlist.scss";
 import { useParams } from "react-router-dom";
-import { getPlaylistRequest } from "./Playlist.request";
-import { useQuery } from "react-query";
-import { PlaylistExtractor } from "./Playlist.extractor";
+import { getPlaylistRequest, getTracksRequest } from "./Playlist.request";
+import { useQuery, useInfiniteQuery } from "react-query";
+import { PlaylistExtractor, tracksExtractor } from "./Playlist.extractor";
 import TextLoading from "../../components/TextLoading/TextLoading.component";
 import PlaylistItem from "./components/PlaylistItem";
 
 const Playlist = () => {
   const { id } = useParams();
   const [PlaylistInfo, setPlaylistInfo] = useState({});
+  const [offset, setOffset] = useState(0);
   useQuery("PLAYLIST", () => getPlaylistRequest(id), {
     onSuccess: (data) => {
       const extractedPlaylistInfo = PlaylistExtractor(data);
@@ -17,6 +18,24 @@ const Playlist = () => {
     },
     refetchOnWindowFocus: false,
   });
+
+  const {
+    data: trackData,
+    isFetching,
+    isFetchingMore,
+    fetchMore,
+    canFetchMore,
+  } = useInfiniteQuery("TRACKS", () => getTracksRequest(id, offset), {
+    getFetchMore: (lastGroup) => lastGroup.next,
+    onSuccess: () => {
+      canFetchMore && setOffset(offset + 100);
+    },
+    refetchOnWindowFocus: false,
+  });
+
+  console.log("isFetching", isFetching);
+
+  const tracksInfo = tracksExtractor(trackData);
 
   return (
     <div className="playlist">
@@ -48,10 +67,13 @@ const Playlist = () => {
 
       <ul className="tracks-list">
         <PlaylistItem header />
-        {PlaylistInfo.tracks?.map((track, index) => (
-          <PlaylistItem track={track} key={index} />
-        ))}
+        {tracksInfo?.map((tracks) =>
+          tracks?.map((track, index) => (
+            <PlaylistItem track={track} key={index} />
+          ))
+        )}
       </ul>
+      {canFetchMore && <button onClick={() => fetchMore()}>MAIS</button>}
     </div>
   );
 };
