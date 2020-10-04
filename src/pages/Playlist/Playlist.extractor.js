@@ -1,6 +1,4 @@
 export const PlaylistExtractor = (PlaylistInfo) => {
-  console.log("PlaylistInfo", PlaylistInfo);
-
   return {
     name: PlaylistInfo.name,
     description: PlaylistInfo.description,

@@ -18,8 +18,6 @@ const Playlist = () => {
     refetchOnWindowFocus: false,
   });
 
-  console.log("tega", PlaylistInfo);
-
   return (
     <div className="playlist">
       <h3>{PlaylistInfo?.name ?? "Loading..."}</h3>
