@@ -18,3 +18,11 @@
     text-decoration: underline;
   }
 }
+
+@mixin button {
+  border-radius: 3px;
+  border: 1px solid whitesmoke;
+  background-color: #0f0f0f;
+  font-weight: bold;
+  color: #1db954;
+}

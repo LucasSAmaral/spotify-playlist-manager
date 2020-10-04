@@ -20,7 +20,7 @@ export const getPlaylistRequest = async (id) => {
   }
 };
 
-export const getTracksRequest = async (id, offset = 0) => {
+export const getTracksRequest = async (id, offset) => {
   const { Authorization } = getHeadersAuthorization();
 
   try {

@@ -6,11 +6,13 @@ import { useQuery, useInfiniteQuery } from "react-query";
 import { PlaylistExtractor, tracksExtractor } from "./Playlist.extractor";
 import TextLoading from "../../components/TextLoading/TextLoading.component";
 import PlaylistItem from "./components/PlaylistItem";
+import Loading from "../../components/Loading/Loading.component";
 
 const Playlist = () => {
   const { id } = useParams();
   const [PlaylistInfo, setPlaylistInfo] = useState({});
   const [offset, setOffset] = useState(0);
+
   useQuery("PLAYLIST", () => getPlaylistRequest(id), {
     onSuccess: (data) => {
       const extractedPlaylistInfo = PlaylistExtractor(data);
@@ -21,7 +23,6 @@ const Playlist = () => {
 
   const {
     data: trackData,
-    isFetching,
     isFetchingMore,
     fetchMore,
     canFetchMore,
@@ -31,9 +32,8 @@ const Playlist = () => {
       canFetchMore && setOffset(offset + 100);
     },
     refetchOnWindowFocus: false,
+    refetchOnMount: true,
   });
-
-  console.log("isFetching", isFetching);
 
   const tracksInfo = tracksExtractor(trackData);
 
@@ -73,7 +73,11 @@ const Playlist = () => {
           ))
         )}
       </ul>
-      {canFetchMore && <button onClick={() => fetchMore()}>MAIS</button>}
+      {canFetchMore && (
+        <button className="load-more-tracks" onClick={() => fetchMore()}>
+          {isFetchingMore ? <Loading /> : "LOAD MORE TRACKS"}
+        </button>
+      )}
     </div>
   );
 };
