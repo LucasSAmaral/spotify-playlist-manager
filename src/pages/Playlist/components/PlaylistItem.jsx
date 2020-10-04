@@ -7,6 +7,7 @@ const PlaylistItem = ({ track, header = false }) => {
       <li className="track-list-item header">
         <div className="track-list-item-title">Title</div>
         <div className="track-list-item-album">Album</div>
+        <div className="track-list-item-preview">Preview</div>
         <div className="track-list-item-options">Options</div>
       </li>
     );
@@ -41,9 +42,10 @@ const PlaylistItem = ({ track, header = false }) => {
           {track.album.name}
         </a>
       </div>
-      <div className="track-list-item-options">
+      <div className="track-list-item-preview">
         {track.previewUrl && <AudioPreview previewUrl={track.previewUrl} />}
       </div>
+      <div className="track-list-item-options">...</div>
     </li>
   );
 };

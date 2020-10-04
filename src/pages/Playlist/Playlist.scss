@@ -43,7 +43,7 @@
 .track-list-item {
   margin-bottom: 20px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
 
   &.header {
     border-bottom: 2px ridge #ffffff;
@@ -92,12 +92,14 @@
 }
 
 .track-list-item-album {
+  text-align: center;
   a {
     @include link;
   }
 }
 
-.track-list-item-options {
+.track-list-item-preview {
+  text-align: center;
   button {
     width: 50px;
     height: 30px;
@@ -112,4 +114,8 @@
       }
     }
   }
+}
+
+.track-list-item-options {
+  text-align: end;
 }

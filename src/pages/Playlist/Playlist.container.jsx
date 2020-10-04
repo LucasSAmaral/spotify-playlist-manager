@@ -34,7 +34,7 @@ const Playlist = () => {
               ? PlaylistInfo?.description ?? (
                   <TextLoading width="100%" height="18px" minWidth="395px" />
                 )
-              : "The playlist description wasn't written."}
+              : "There is no description for this playlist."}
           </h4>
         </div>
       </div>
