@@ -22,7 +22,7 @@ const MyPlaylists = () => {
 
   return (
     <div className="my-playlists">
-      <h3>My Playlists</h3>
+      <h2>My Playlists</h2>
       <div
         className={`my-playlists-content ${
           isFetching ? "loading-content" : ""

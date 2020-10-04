@@ -20,7 +20,7 @@ const Playlist = () => {
 
   return (
     <div className="playlist">
-      <h3>{PlaylistInfo?.name ?? "Loading..."}</h3>
+      <h2>{PlaylistInfo?.name ?? "Loading..."}</h2>
 
       <div className="playlist-info">
         <figure>
@@ -28,13 +28,20 @@ const Playlist = () => {
         </figure>
 
         <div className="playlist-description">
-          <h2>Description:</h2>
+          <h3>Description:</h3>
           <h4>
             {PlaylistInfo.description !== ""
               ? PlaylistInfo?.description ?? (
                   <TextLoading width="100%" height="18px" minWidth="395px" />
                 )
               : "There is no description for this playlist."}
+          </h4>
+
+          <h3>Owner:</h3>
+          <h4>
+            {PlaylistInfo.owner?.name ?? (
+              <TextLoading width="125px" height="18px" minWidth="125px" />
+            )}
           </h4>
         </div>
       </div>
