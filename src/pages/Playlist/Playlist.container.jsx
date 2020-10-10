@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Playlist.scss";
 import { useParams } from "react-router-dom";
 import { getPlaylistRequest, getTracksRequest } from "./Playlist.request";
-import { useQuery, useInfiniteQuery } from "react-query";
+import { useQuery, useInfiniteQuery, queryCache } from "react-query";
 import { PlaylistExtractor, tracksExtractor } from "./Playlist.extractor";
 import TextLoading from "../../components/TextLoading/TextLoading.component";
 import PlaylistItem from "./components/PlaylistItem";
@@ -20,6 +20,12 @@ const Playlist = () => {
     },
     refetchOnWindowFocus: false,
   });
+
+  useEffect(() => {
+    return () => {
+      queryCache.removeQueries('TRACKS');
+    }
+  }, []);
 
   const {
     data: trackData,
