@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from "react";
 import "./Playlist.scss";
 import { useParams } from "react-router-dom";
-import { getPlaylistRequest, getTracksRequest } from "./Playlist.request";
+import { getPlaylistRequest } from "./Playlist.request";
 import { useQuery, useInfiniteQuery, queryCache } from "react-query";
 import { PlaylistExtractor, tracksExtractor } from "./Playlist.extractor";
 import TextLoading from "../../components/TextLoading/TextLoading.component";
 import PlaylistItem from "./components/PlaylistItem";
-import Loading from "../../components/Loading/Loading.component";
+import { getHeadersAuthorization } from "../../helpers/getHeadersAuthorization.helper";
+import Axios from "axios";
+import { removeAllCookies } from "../../helpers/removeAllCookies.helper";
 
 const Playlist = () => {
   const { id } = useParams();
   const [PlaylistInfo, setPlaylistInfo] = useState({});
-  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    return () => {
+      queryCache.removeQueries('TRACKS');
+    }
+  }, []);
 
   useQuery("PLAYLIST", () => getPlaylistRequest(id), {
     onSuccess: (data) => {
@@ -21,24 +28,30 @@ const Playlist = () => {
     refetchOnWindowFocus: false,
   });
 
-  useEffect(() => {
-    return () => {
-      queryCache.removeQueries('TRACKS');
-    }
-  }, []);
-
   const {
     data: trackData,
     isFetchingMore,
     fetchMore,
     canFetchMore,
-  } = useInfiniteQuery("TRACKS", () => getTracksRequest(id, offset), {
+  } = useInfiniteQuery('TRACKS', async (key, href = PlaylistInfo.tracksHref) => {
+    const { Authorization } = getHeadersAuthorization();
+  
+    try {
+      const { data } = await Axios({
+        method: "GET",
+        url: href,
+        headers: {
+          Authorization,
+        },
+      });
+      return data;
+    } catch (error) {
+      removeAllCookies();
+      window.location = "/login";
+    }
+  }, {
     getFetchMore: (lastGroup) => lastGroup.next,
-    onSuccess: () => {
-      canFetchMore && setOffset(offset + 100);
-    },
-    refetchOnWindowFocus: false,
-    refetchOnMount: true,
+    enabled: PlaylistInfo.tracksHref
   });
 
   const tracksInfo = tracksExtractor(trackData);
@@ -79,9 +92,9 @@ const Playlist = () => {
           ))
         )}
       </ul>
-      {canFetchMore && (
+      {!isFetchingMore && canFetchMore && (
         <button className="load-more-tracks" onClick={() => fetchMore()}>
-          {isFetchingMore ? <Loading /> : "LOAD MORE TRACKS"}
+          LOAD MORE TRACKS
         </button>
       )}
     </div>

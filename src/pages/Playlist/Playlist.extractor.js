@@ -7,6 +7,7 @@ export const PlaylistExtractor = (PlaylistInfo) => {
       name: PlaylistInfo.owner.display_name,
       id: PlaylistInfo.owner.id,
     },
+    tracksHref: PlaylistInfo.tracks.href
   };
 };
 
