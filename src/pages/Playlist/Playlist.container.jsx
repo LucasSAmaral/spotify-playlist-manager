@@ -14,8 +14,8 @@ const Playlist = () => {
 
   useEffect(() => {
     return () => {
-      queryCache.removeQueries('TRACKS');
-    }
+      queryCache.removeQueries("TRACKS");
+    };
   }, []);
 
   useQuery("PLAYLIST", () => getPlaylistRequest(id), {
@@ -26,7 +26,12 @@ const Playlist = () => {
     refetchOnWindowFocus: false,
   });
 
-const { trackData, isFetchingMore, fetchMore, canFetchMore } = useInfiniteTracksHook('TRACKS', PlaylistInfo.tracksHref);
+  const {
+    trackData,
+    isFetchingMore,
+    fetchMore,
+    canFetchMore,
+  } = useInfiniteTracksHook("TRACKS", PlaylistInfo.tracksHref);
 
   const tracksInfo = tracksExtractor(trackData);
 

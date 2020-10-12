@@ -4,31 +4,35 @@ import { getHeadersAuthorization } from "../../../helpers/getHeadersAuthorizatio
 import { removeAllCookies } from "../../../helpers/removeAllCookies.helper";
 
 export const useInfiniteTracksHook = (queryKey, tracksHref) => {
-    const {
-        data: trackData,
-        isFetchingMore,
-        fetchMore,
-        canFetchMore,
-      } = useInfiniteQuery(queryKey, async (key, href = tracksHref) => {
-        const { Authorization } = getHeadersAuthorization();
-      
-        try {
-          const { data } = await Axios({
-            method: "GET",
-            url: href,
-            headers: {
-              Authorization,
-            },
-          });
-          return data;
-        } catch (error) {
-          removeAllCookies();
-          window.location = "/login";
-        }
-      }, {
-        getFetchMore: (lastGroup) => lastGroup.next,
-        enabled: tracksHref
-      });
+  const {
+    data: trackData,
+    isFetchingMore,
+    fetchMore,
+    canFetchMore,
+  } = useInfiniteQuery(
+    queryKey,
+    async (key, href = tracksHref) => {
+      const { Authorization } = getHeadersAuthorization();
 
-      return {trackData, isFetchingMore, fetchMore, canFetchMore};
+      try {
+        const { data } = await Axios({
+          method: "GET",
+          url: href,
+          headers: {
+            Authorization,
+          },
+        });
+        return data;
+      } catch (error) {
+        removeAllCookies();
+        window.location = "/login";
+      }
+    },
+    {
+      getFetchMore: (lastGroup) => lastGroup.next,
+      enabled: tracksHref,
+    }
+  );
+
+  return { trackData, isFetchingMore, fetchMore, canFetchMore };
 };
