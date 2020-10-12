@@ -2,13 +2,11 @@ import React, { useState, useEffect } from "react";
 import "./Playlist.scss";
 import { useParams } from "react-router-dom";
 import { getPlaylistRequest } from "./Playlist.request";
-import { useQuery, useInfiniteQuery, queryCache } from "react-query";
+import { useQuery, queryCache } from "react-query";
 import { PlaylistExtractor, tracksExtractor } from "./Playlist.extractor";
 import TextLoading from "../../components/TextLoading/TextLoading.component";
 import PlaylistItem from "./components/PlaylistItem";
-import { getHeadersAuthorization } from "../../helpers/getHeadersAuthorization.helper";
-import Axios from "axios";
-import { removeAllCookies } from "../../helpers/removeAllCookies.helper";
+import { useInfiniteTracksHook } from "./hooks/Playlist.hooks";
 
 const Playlist = () => {
   const { id } = useParams();
@@ -28,31 +26,7 @@ const Playlist = () => {
     refetchOnWindowFocus: false,
   });
 
-  const {
-    data: trackData,
-    isFetchingMore,
-    fetchMore,
-    canFetchMore,
-  } = useInfiniteQuery('TRACKS', async (key, href = PlaylistInfo.tracksHref) => {
-    const { Authorization } = getHeadersAuthorization();
-  
-    try {
-      const { data } = await Axios({
-        method: "GET",
-        url: href,
-        headers: {
-          Authorization,
-        },
-      });
-      return data;
-    } catch (error) {
-      removeAllCookies();
-      window.location = "/login";
-    }
-  }, {
-    getFetchMore: (lastGroup) => lastGroup.next,
-    enabled: PlaylistInfo.tracksHref
-  });
+const { trackData, isFetchingMore, fetchMore, canFetchMore } = useInfiniteTracksHook('TRACKS', PlaylistInfo.tracksHref);
 
   const tracksInfo = tracksExtractor(trackData);
 
