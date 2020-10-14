@@ -49,6 +49,7 @@
   grid-template-columns: repeat(4, 1fr);
   align-items: center;
   padding: 10px;
+  animation: fade-in-top 1000ms ease both;
 
   &:first-child {
     margin-bottom: 20px;
@@ -63,6 +64,7 @@
     padding-bottom: 5px;
     font-weight: bold;
     text-transform: uppercase;
+    animation: none;
     &:hover {
       background-color: transparent;
     }
@@ -135,4 +137,15 @@
   margin-top: 10px;
 
   @include button;
+}
+
+@keyframes fade-in-top {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
