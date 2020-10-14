@@ -1,12 +1,16 @@
 import React from "react";
+import { queryCache } from "react-query";
 
 const MyPlaylistItem = ({
   image,
   name,
   total_tracks,
+  owner,
   useCover = false,
   onClick,
 }) => {
+  const userInfo = queryCache.getQueryData("USER_INFO");
+
   return (
     <div className="my-playlist-item" onClick={onClick}>
       <figure>
@@ -20,7 +24,9 @@ const MyPlaylistItem = ({
       </div>
       {useCover ? (
         <div className="my-playlist-item-cover">
-          <h3>Edit Playlist</h3>
+          <h3>
+            {owner.id === userInfo?.id ? "Edit Playlist" : "Show Playlist"}
+          </h3>
         </div>
       ) : (
         <></>
