@@ -36,6 +36,7 @@ const ModalContainer = () => {
           onClick={(e) => e.stopPropagation()}
           className="modal-content"
         >
+          <p onClick={closeModal}>close</p>
           {children}
         </ModalContent>
       </ModalBackdropComponent>,
