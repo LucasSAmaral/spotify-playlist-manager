@@ -28,6 +28,7 @@ const MyPlaylists = () => {
           isFetching ? "loading-content" : ""
         }`}
       >
+        <MyPlaylistItem createPlaylist useCover />
         {my_playlists?.map((playlist) => (
           <MyPlaylistItem
             onClick={() => history.push(`/playlist/${playlist.id}`)}
