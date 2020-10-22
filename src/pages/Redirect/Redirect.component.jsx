@@ -24,9 +24,9 @@ const RedirectComponent = ({ location }) => {
           autorizationTokens[autorizationObjectKey]
         )
       );
-      return history.push("/my-playlists");
+      return history.push("/#/my-playlists");
     }
-    return history.push("/login");
+    return history.push("/#/login");
 
     // eslint-disable-next-line
   }, []);

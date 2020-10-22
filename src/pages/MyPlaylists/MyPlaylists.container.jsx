@@ -37,7 +37,7 @@ const MyPlaylists = () => {
         />
         {my_playlists?.map((playlist) => (
           <MyPlaylistItem
-            onClick={() => history.push(`/playlist/${playlist.id}`)}
+            onClick={() => history.push(`/#/playlist/${playlist.id}`)}
             key={playlist.id}
             {...playlist}
             useCover
