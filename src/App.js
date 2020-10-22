@@ -2,6 +2,7 @@ import React, { useEffect, useState, Suspense } from "react";
 import Cookie from "js-cookie";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Loading from "./components/Loading/Loading.component";
+import ModalContainer from "./components/Modal/Modal.container";
 
 const Header = React.lazy(() => import("./components/Header/Header.component"));
 
@@ -34,6 +35,7 @@ function App() {
           <Route path="/playlist/:id" component={Playlist} />
         </Suspense>
       </Switch>
+      <ModalContainer />
     </>
   );
 }

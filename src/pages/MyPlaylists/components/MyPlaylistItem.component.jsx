@@ -14,7 +14,7 @@ const MyPlaylistItem = ({
 
   if (createPlaylist) {
     return (
-      <div className="my-playlist-item create-playlist">
+      <div className="my-playlist-item create-playlist" onClick={onClick}>
         +
         {useCover ? (
           <div className="my-playlist-item-cover">

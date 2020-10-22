@@ -5,14 +5,17 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { MyProfileProvider } from "./components/MyProfile/MyProfile.context";
+import { ModalProvider } from "./components/Modal/Modal.context";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <MyProfileProvider>
-        <App />
-      </MyProfileProvider>
-    </BrowserRouter>
+    <ModalProvider>
+      <BrowserRouter>
+        <MyProfileProvider>
+          <App />
+        </MyProfileProvider>
+      </BrowserRouter>
+    </ModalProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

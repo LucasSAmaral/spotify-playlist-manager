@@ -6,9 +6,11 @@ import { getUserPlayslistRequest } from "./MyPlaylists.request";
 import { MyPlaylistsExtractor } from "./MyPlaylists.extractor";
 import Loading from "../../components/Loading/Loading.component";
 import MyPlaylistItem from "./components/MyPlaylistItem.component";
+import { useModal } from "../../components/Modal/Modal.context";
 
 const MyPlaylists = () => {
   const history = useHistory();
+  const { openModal } = useModal();
   const [MyPlaylistInfo, setMyPlaylistInfo] = useState({});
   const { isFetching } = useQuery("USER_PLAYLISTS", getUserPlayslistRequest, {
     onSuccess: (data) => {
@@ -28,7 +30,11 @@ const MyPlaylists = () => {
           isFetching ? "loading-content" : ""
         }`}
       >
-        <MyPlaylistItem createPlaylist useCover />
+        <MyPlaylistItem
+          createPlaylist
+          useCover
+          onClick={() => openModal(<h1>TEGA</h1>)}
+        />
         {my_playlists?.map((playlist) => (
           <MyPlaylistItem
             onClick={() => history.push(`/playlist/${playlist.id}`)}
