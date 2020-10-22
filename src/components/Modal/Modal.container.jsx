@@ -31,7 +31,6 @@ const ModalContainer = () => {
         onClick={closeModal}
         className={classRelation ? classRelation : ""}
       >
-        {console.log("status", status)}
         <ModalContent
           onAnimationEnd={onModalAnimationEnd}
           onClick={(e) => e.stopPropagation()}
