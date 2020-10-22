@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Suspense } from "react";
 import Cookie from "js-cookie";
-import { Switch, Route, Redirect, HashRouter } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Loading from "./components/Loading/Loading.component";
 import ModalContainer from "./components/Modal/Modal.container";
 
@@ -23,7 +23,7 @@ function App() {
     setAccessToken(Cookie.get("access_token"));
   }, []);
   return (
-    <HashRouter basename="/">
+    <>
       <Switch>
         <Suspense fallback={<Loading />}>
           {accessToken && <Header />}
@@ -36,7 +36,7 @@ function App() {
         </Suspense>
       </Switch>
       <ModalContainer />
-    </HashRouter>
+    </>
   );
 }
 
