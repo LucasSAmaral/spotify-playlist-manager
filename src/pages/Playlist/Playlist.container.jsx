@@ -7,6 +7,7 @@ import { PlaylistExtractor, tracksExtractor } from "./Playlist.extractor";
 import TextLoading from "../../components/TextLoading/TextLoading.component";
 import PlaylistItem from "./components/PlaylistItem";
 import { useInfiniteTracksHook } from "./hooks/Playlist.hooks";
+import PlaylistImagePlaceholder from "../../components/PlaylistImagePlaceholder.component";
 
 const Playlist = () => {
   const { id } = useParams();
@@ -40,9 +41,15 @@ const Playlist = () => {
       <h2>{PlaylistInfo?.name ?? "Loading..."}</h2>
 
       <div className="playlist-info">
-        <figure>
-          <img src={PlaylistInfo.image} alt="" />
-        </figure>
+        {PlaylistInfo.image ? (
+          <figure>
+            <img src={PlaylistInfo.image} alt="" />
+          </figure>
+        ) : (
+          <figure>
+            <PlaylistImagePlaceholder />
+          </figure>
+        )}
 
         <div className="playlist-description">
           <h3>Description:</h3>

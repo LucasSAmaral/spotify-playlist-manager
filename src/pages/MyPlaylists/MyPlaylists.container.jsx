@@ -7,6 +7,7 @@ import { MyPlaylistsExtractor } from "./MyPlaylists.extractor";
 import Loading from "../../components/Loading/Loading.component";
 import MyPlaylistItem from "./components/MyPlaylistItem.component";
 import { useModal } from "../../components/Modal/Modal.context";
+import CreatePlaylistComponent from "../../components/CreatePlaylist/CreatePlaylist.component";
 
 const MyPlaylists = () => {
   const history = useHistory();
@@ -33,7 +34,7 @@ const MyPlaylists = () => {
         <MyPlaylistItem
           createPlaylist
           useCover
-          onClick={() => openModal(<h1>TEGA</h1>)}
+          onClick={() => openModal(<CreatePlaylistComponent />)}
         />
         {my_playlists?.map((playlist) => (
           <MyPlaylistItem
