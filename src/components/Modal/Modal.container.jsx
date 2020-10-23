@@ -36,7 +36,9 @@ const ModalContainer = () => {
           onClick={(e) => e.stopPropagation()}
           className="modal-content"
         >
-          <p onClick={closeModal}>close</p>
+          <div className="close-modal" onClick={closeModal}>
+            X
+          </div>
           {children}
         </ModalContent>
       </ModalBackdropComponent>,
@@ -75,11 +77,22 @@ const ModalContainer = () => {
 
 const ModalContent = styled.div`
   position: fixed;
-  background-color: #fff;
-  max-width: 500px;
+  background-color: #0f0f0f;
+  border: 2px ridge #ffffff;
+  max-width: 1000px;
+  color: whitesmoke;
   width: 100%;
   padding: 20px 10px;
   z-index: 1042;
+
+  .close-modal {
+    display: inline-block;
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-weight: bold;
+  }
 `;
 
 export default ModalContainer;
