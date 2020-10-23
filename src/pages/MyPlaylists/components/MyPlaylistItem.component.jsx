@@ -1,5 +1,6 @@
 import React from "react";
 import { queryCache } from "react-query";
+import PlaylistImagePlaceholder from "../../../components/PlaylistImagePlaceholder.component";
 
 const MyPlaylistItem = ({
   image,
@@ -29,9 +30,14 @@ const MyPlaylistItem = ({
 
   return (
     <div className="my-playlist-item" onClick={onClick}>
-      <figure>
-        <img src={image} alt="" />
-      </figure>
+      {image ? (
+        <figure>
+          <img src={image} alt="" />
+        </figure>
+      ) : (
+        <PlaylistImagePlaceholder />
+      )}
+
       <div className="my-playlist-info">
         <div className="my-playlist-info-text">
           <h3>{name}</h3>
