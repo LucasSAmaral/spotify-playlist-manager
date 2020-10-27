@@ -5,6 +5,7 @@ import { removeAllCookies } from "../../../helpers/removeAllCookies.helper";
 
 export const useInfiniteTracksHook = (queryKey, tracksHref) => {
   const {
+    isFetched,
     data: trackData,
     isFetchingMore,
     fetchMore,
@@ -31,8 +32,9 @@ export const useInfiniteTracksHook = (queryKey, tracksHref) => {
     {
       getFetchMore: (lastGroup) => lastGroup.next,
       enabled: tracksHref,
+      refetchOnWindowFocus: false,
     }
   );
 
-  return { trackData, isFetchingMore, fetchMore, canFetchMore };
+  return { trackData, isFetchingMore, isFetched, fetchMore, canFetchMore };
 };

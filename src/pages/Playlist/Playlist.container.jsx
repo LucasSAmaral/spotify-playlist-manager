@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Playlist.scss";
+import styled from "styled-components";
+import { propOr } from "ramda";
 import { useParams } from "react-router-dom";
 import { getPlaylistRequest } from "./Playlist.request";
 import { useQuery, queryCache } from "react-query";
@@ -8,10 +10,13 @@ import TextLoading from "../../components/TextLoading/TextLoading.component";
 import PlaylistItem from "./components/PlaylistItem";
 import { useInfiniteTracksHook } from "./hooks/Playlist.hooks";
 import PlaylistImagePlaceholder from "../../components/PlaylistImagePlaceholder.component";
+import { CreatePlaylistButton } from "../../components/CreatePlaylist/CreatePlaylist.component";
+import { useModal } from "../../components/Modal/Modal.context";
 
 const Playlist = () => {
   const { id } = useParams();
   const [PlaylistInfo, setPlaylistInfo] = useState({});
+  const { openModal } = useModal();
 
   useEffect(() => {
     return () => {
@@ -28,6 +33,7 @@ const Playlist = () => {
   });
 
   const {
+    isFetched,
     trackData,
     isFetchingMore,
     fetchMore,
@@ -35,6 +41,8 @@ const Playlist = () => {
   } = useInfiniteTracksHook("TRACKS", PlaylistInfo.tracksHref);
 
   const tracksInfo = tracksExtractor(trackData);
+
+  const hasTracksInfo = propOr([], "0", tracksInfo).length > 0;
 
   return (
     <div className="playlist">
@@ -71,7 +79,19 @@ const Playlist = () => {
       </div>
 
       <ul className="tracks-list">
-        <PlaylistItem header />
+        {hasTracksInfo && <PlaylistItem header />}
+        {!hasTracksInfo && isFetched ? (
+          <AddMusicToPlaylistContainer>
+            <h3>Add some music to your playlist</h3>
+            <AddMusicToPlaylistButton
+              onClick={() => openModal(<h1>Add Music</h1>)}
+            >
+              Add Music
+            </AddMusicToPlaylistButton>
+          </AddMusicToPlaylistContainer>
+        ) : (
+          <></>
+        )}
         {tracksInfo?.map((tracks) =>
           tracks?.map((track, index) => (
             <PlaylistItem track={track} key={index} />
@@ -86,5 +106,15 @@ const Playlist = () => {
     </div>
   );
 };
+
+const AddMusicToPlaylistContainer = styled.div`
+  text-align: center;
+  h3 {
+    font-size: 2rem;
+    text-align: center;
+  }
+`;
+
+const AddMusicToPlaylistButton = styled(CreatePlaylistButton)``;
 
 export default Playlist;
