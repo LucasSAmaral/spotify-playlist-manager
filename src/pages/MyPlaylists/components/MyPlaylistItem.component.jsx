@@ -8,18 +8,20 @@ const MyPlaylistItem = ({
   total_tracks,
   owner,
   useCover = false,
-  onClick,
+  createPlaylistOnClick,
+  openPlaylist,
+  removePlaylist,
   createPlaylist = false,
 }) => {
   const userInfo = queryCache.getQueryData("USER_INFO");
 
   if (createPlaylist) {
     return (
-      <div className="my-playlist-item create-playlist" onClick={onClick}>
+      <div className="my-playlist-item create-playlist">
         +
         {useCover ? (
           <div className="my-playlist-item-cover">
-            <h3>Create New Playlist</h3>
+            <h3 onClick={createPlaylistOnClick}>Create New Playlist</h3>
           </div>
         ) : (
           <></>
@@ -29,7 +31,7 @@ const MyPlaylistItem = ({
   }
 
   return (
-    <div className="my-playlist-item" onClick={onClick}>
+    <div className="my-playlist-item">
       {image ? (
         <figure>
           <img src={image} alt="" />
@@ -46,9 +48,10 @@ const MyPlaylistItem = ({
       </div>
       {useCover ? (
         <div className="my-playlist-item-cover">
-          <h3>
+          <h3 onClick={openPlaylist}>
             {owner.id === userInfo?.id ? "Edit Playlist" : "Show Playlist"}
           </h3>
+          <h3 onClick={removePlaylist}>Remove Playlist</h3>
         </div>
       ) : (
         <></>

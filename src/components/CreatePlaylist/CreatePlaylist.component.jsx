@@ -80,7 +80,7 @@ const CreatePlaylistInput = styled.input`
   color: #1db954;
 `;
 
-const CreatePlaylistButton = styled.button`
+export const CreatePlaylistButton = styled.button`
   padding: 16px 20px;
   border-radius: 3px;
   border: 1px solid whitesmoke;
