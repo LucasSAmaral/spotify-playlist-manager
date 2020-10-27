@@ -8,6 +8,7 @@ import Loading from "../../components/Loading/Loading.component";
 import MyPlaylistItem from "./components/MyPlaylistItem.component";
 import { useModal } from "../../components/Modal/Modal.context";
 import CreatePlaylistComponent from "../../components/CreatePlaylist/CreatePlaylist.component";
+import RemovePlaylistComponent from "../../components/RemovePlaylist/RemovePlaylist.component";
 
 const MyPlaylists = () => {
   const history = useHistory();
@@ -34,11 +35,19 @@ const MyPlaylists = () => {
         <MyPlaylistItem
           createPlaylist
           useCover
-          onClick={() => openModal(<CreatePlaylistComponent />)}
+          createPlaylistOnClick={() => openModal(<CreatePlaylistComponent />)}
         />
         {my_playlists?.map((playlist) => (
           <MyPlaylistItem
-            onClick={() => history.push(`/playlist/${playlist.id}`)}
+            openPlaylist={() => history.push(`/playlist/${playlist.id}`)}
+            removePlaylist={() =>
+              openModal(
+                <RemovePlaylistComponent
+                  id={playlist.id}
+                  name={playlist.name}
+                />
+              )
+            }
             key={playlist.id}
             {...playlist}
             useCover
