@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./Playlist.scss";
-import styled from "styled-components";
 import { propOr } from "ramda";
 import { useParams } from "react-router-dom";
 import { getPlaylistRequest } from "./Playlist.request";
@@ -10,13 +9,11 @@ import TextLoading from "../../components/TextLoading/TextLoading.component";
 import PlaylistItem from "./components/PlaylistItem";
 import { useInfiniteTracksHook } from "./hooks/Playlist.hooks";
 import PlaylistImagePlaceholder from "../../components/PlaylistImagePlaceholder.component";
-import { CreatePlaylistButton } from "../../components/CreatePlaylist/CreatePlaylist.component";
-import { useModal } from "../../components/Modal/Modal.context";
+import AddMusicToPlaylist from "./components/AddMusicToPlaylist";
 
 const Playlist = () => {
   const { id } = useParams();
   const [PlaylistInfo, setPlaylistInfo] = useState({});
-  const { openModal } = useModal();
 
   useEffect(() => {
     return () => {
@@ -80,18 +77,7 @@ const Playlist = () => {
 
       <ul className="tracks-list">
         {hasTracksInfo && <PlaylistItem header />}
-        {!hasTracksInfo && isFetched ? (
-          <AddMusicToPlaylistContainer>
-            <h3>Add some music to your playlist</h3>
-            <AddMusicToPlaylistButton
-              onClick={() => openModal(<h1>Add Music</h1>)}
-            >
-              Add Music
-            </AddMusicToPlaylistButton>
-          </AddMusicToPlaylistContainer>
-        ) : (
-          <></>
-        )}
+        {!hasTracksInfo && isFetched ? <AddMusicToPlaylist /> : <></>}
         {tracksInfo?.map((tracks) =>
           tracks?.map((track, index) => (
             <PlaylistItem track={track} key={index} />
@@ -106,15 +92,5 @@ const Playlist = () => {
     </div>
   );
 };
-
-const AddMusicToPlaylistContainer = styled.div`
-  text-align: center;
-  h3 {
-    font-size: 2rem;
-    text-align: center;
-  }
-`;
-
-const AddMusicToPlaylistButton = styled(CreatePlaylistButton)``;
 
 export default Playlist;

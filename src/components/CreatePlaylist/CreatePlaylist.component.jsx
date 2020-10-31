@@ -3,6 +3,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { queryCache, useMutation } from "react-query";
 import styled from "styled-components";
+import { StyledButton } from "../Button/StyledButton.component";
+import { StyledInputComponent } from "../Input/StyledInput.component";
 import { useModal } from "../Modal/Modal.context";
 import { createPlaylistRequest } from "./CreatePlaylist.request";
 
@@ -51,7 +53,8 @@ const CreatePlaylistComponent = () => {
   );
 };
 
-const CreatePlaylistFormContainer = styled.div`
+export const CreatePlaylistFormContainer = styled.div`
+  padding: 25px;
   h2 {
     font-size: 3rem;
   }
@@ -67,32 +70,8 @@ const CreatePlaylistForm = styled.form`
   }
 `;
 
-const CreatePlaylistInput = styled.input`
-  margin-top: 10px;
-  margin-bottom: 20px;
-  padding: 20px;
-  font-size: 1rem;
-  background-color: #282828;
-  outline: none;
-  border: 2px ridge #ffffff;
-  border-radius: 5px;
-  font-weight: bolder;
-  color: #1db954;
-`;
+const CreatePlaylistInput = styled(StyledInputComponent)``;
 
-export const CreatePlaylistButton = styled.button`
-  padding: 16px 20px;
-  border-radius: 3px;
-  border: 1px solid whitesmoke;
-  background-color: #0f0f0f;
-  font-weight: bold;
-  color: #1db954;
-  text-transform: uppercase;
-  cursor: pointer;
-  max-width: 300px;
-  width: 100%;
-  margin: 0 auto;
-  margin-top: 20px;
-`;
+export const CreatePlaylistButton = styled(StyledButton)``;
 
 export default CreatePlaylistComponent;
