@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Suspense } from "react";
+import React, { Suspense } from "react";
 import Cookie from "js-cookie";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Loading from "./components/Loading/Loading.component";
@@ -18,18 +18,18 @@ const Playlist = React.lazy(() =>
 );
 
 function App() {
-  const [accessToken, setAccessToken] = useState();
-  useEffect(() => {
-    setAccessToken(Cookie.get("access_token"));
-  }, []);
   return (
     <>
       <Switch>
         <Suspense fallback={<Loading />}>
-          {accessToken && <Header />}
+          {Cookie.get("access_token") && <Header />}
           <Route exact path="/" component={RedirectComponent} />
           <Route path="/login">
-            {accessToken ? <Redirect to="/my-playlists" /> : <Login />}
+            {Cookie.get("access_token") ? (
+              <Redirect to="/my-playlists" />
+            ) : (
+              <Login />
+            )}
           </Route>
           <Route path="/my-playlists" component={MyPlaylists} />
           <Route path="/playlist/:id" component={Playlist} />
