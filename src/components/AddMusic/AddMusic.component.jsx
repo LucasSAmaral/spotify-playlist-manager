@@ -1,14 +1,25 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import SearchParam from "../Checkbox/SearchParams.component";
+import { useQuery } from "react-query";
 // import { StyledButton } from "../Button/StyledButton.component";
 import { CreatePlaylistFormContainer } from "../CreatePlaylist/CreatePlaylist.component";
 import { StyledInputComponent } from "../Input/StyledInput.component";
+import { SearchRequest } from "./Search.request";
 
 const paramsList = ["album", "artist", "playlist", "track", "show", "episode"];
 
 const AddMusicComponent = () => {
   const [params, setParams] = useState([]);
+  const [query, setQuery] = useState("");
+  const { data, refetch } = useQuery(
+    "SEARCH",
+    () => SearchRequest(query, params),
+    {
+      refetchOnWindowFocus: false,
+      enabled: false,
+    }
+  );
   const addMusicInput = useRef(null);
 
   const handleParams = (newParam) => {
@@ -19,6 +30,12 @@ const AddMusicComponent = () => {
       setParams([...params, newParam]);
     }
     addMusicInput.current.focus();
+  };
+
+  const handleQuery = (value) => {
+    const query = value.replace(/ /g, "%20");
+    setQuery(query);
+    refetch();
   };
 
   return (
@@ -43,6 +60,7 @@ const AddMusicComponent = () => {
           disabled={params.length === 0}
           placeholder="Search"
           ref={addMusicInput}
+          onChange={(e) => handleQuery(e.target.value)}
         />
       </AddMusicSearchContainer>
     </AddMusicContainer>
