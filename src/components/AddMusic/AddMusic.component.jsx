@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import SearchParam from "../Checkbox/SearchParams.component";
 // import { StyledButton } from "../Button/StyledButton.component";
 import { CreatePlaylistFormContainer } from "../CreatePlaylist/CreatePlaylist.component";
 import { StyledInputComponent } from "../Input/StyledInput.component";
 
+const paramsList = ["album", "artist", "playlist", "track", "show", "episode"];
+
 const AddMusicComponent = () => {
+  const [params, setParams] = useState([]);
+  const addMusicInput = useRef(null);
+
+  const handleParams = (newParam) => {
+    if (params.includes(newParam)) {
+      const updatedParams = params.filter((p) => p !== newParam);
+      setParams([...updatedParams]);
+    } else {
+      setParams([...params, newParam]);
+    }
+    addMusicInput.current.focus();
+  };
+
   return (
     <AddMusicContainer>
       <h2>Add Music To Your Playlist</h2>
@@ -13,14 +28,22 @@ const AddMusicComponent = () => {
       <AddMusicSearchContainer>
         <AddMusicCheckboxContainer>
           Choose what you want to search:
-          <SearchParam param="album">Album</SearchParam>
-          <SearchParam param="artist">Artist</SearchParam>
-          <SearchParam param="playlist">Playlist</SearchParam>
-          <SearchParam param="track">Track</SearchParam>
-          <SearchParam param="show">Show</SearchParam>
-          <SearchParam param="episode">Episode</SearchParam>
+          {paramsList.map((param, index) => (
+            <SearchParam
+              key={index}
+              param={param}
+              onChange={() => handleParams(param)}
+            >
+              {param}
+            </SearchParam>
+          ))}
         </AddMusicCheckboxContainer>
-        <AddMusicInput type="search" placeholder="Search" />
+        <AddMusicInput
+          type="search"
+          disabled={params.length === 0}
+          placeholder="Search"
+          ref={addMusicInput}
+        />
       </AddMusicSearchContainer>
     </AddMusicContainer>
   );
@@ -39,6 +62,9 @@ const AddMusicSearchContainer = styled.div`
 const AddMusicInput = styled(StyledInputComponent)`
   width: 100%;
   margin: 0;
+  &:disabled {
+    opacity: 0.1;
+  }
 `;
 
 const AddMusicCheckboxContainer = styled.div``;

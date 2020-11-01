@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-const SearchParam = ({ children, param }) => {
+const SearchParam = ({ children, param, onChange }) => {
   return (
-    <SearchParamLabel htmlFor={param}>
+    <SearchParamLabel htmlFor={param} onChange={onChange}>
       <SearchParamInput type="checkbox" name={param} id={param} />
       <span>{children}</span>
     </SearchParamLabel>
