@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import SearchParam from "../Checkbox/SearchParams.component";
 import { useQuery } from "react-query";
-// import { StyledButton } from "../Button/StyledButton.component";
 import { CreatePlaylistFormContainer } from "../CreatePlaylist/CreatePlaylist.component";
 import { StyledInputComponent } from "../Input/StyledInput.component";
 import { SearchRequest } from "./Search.request";
@@ -12,7 +11,8 @@ const paramsList = ["album", "artist", "playlist", "track", "show", "episode"];
 const AddMusicComponent = () => {
   const [params, setParams] = useState([]);
   const [query, setQuery] = useState("");
-  const { data, refetch } = useQuery(
+  const [selectedTab, setSelectedTab] = useState("");
+  const { data: searchResult, refetch, isLoading } = useQuery(
     "SEARCH",
     () => SearchRequest(query, params),
     {
@@ -30,6 +30,7 @@ const AddMusicComponent = () => {
       setParams([...params, newParam]);
     }
     addMusicInput.current.focus();
+    addMusicInput.current.value = "";
   };
 
   const handleQuery = (value) => {
@@ -37,6 +38,10 @@ const AddMusicComponent = () => {
     setQuery(query);
     refetch();
   };
+
+  const searchResultKeys = searchResult ? Object.keys(searchResult) : [];
+
+  console.log("tega", selectedTab);
 
   return (
     <AddMusicContainer>
@@ -63,6 +68,18 @@ const AddMusicComponent = () => {
           onChange={(e) => handleQuery(e.target.value)}
         />
       </AddMusicSearchContainer>
+
+      {!isLoading && (
+        <AddMusicSearchResults>
+          <SearchTab>
+            {searchResultKeys.map((searchResultKey) => (
+              <SearchTabItem onClick={() => setSelectedTab(searchResultKey)}>
+                {searchResultKey}
+              </SearchTabItem>
+            ))}
+          </SearchTab>
+        </AddMusicSearchResults>
+      )}
     </AddMusicContainer>
   );
 };
@@ -87,9 +104,30 @@ const AddMusicInput = styled(StyledInputComponent)`
 
 const AddMusicCheckboxContainer = styled.div``;
 
-// const AddMusicButton = styled(StyledButton)`
-//   margin-top: 0;
-//   height: 49px;
-// `;
+const AddMusicSearchResults = styled.div``;
+
+const SearchTab = styled.ul`
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+`;
+
+const SearchTabItem = styled.li`
+  list-style: none;
+  font-weight: bold;
+  color: #1db954;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 16px 20px;
+  border: 1px solid whitesmoke;
+  width: 100%;
+  text-align: center;
+  gap: 1rem;
+  margin-right: 0.5rem;
+
+  &:last-child {
+    margin-right: 0;
+  }
+`;
 
 export default AddMusicComponent;
