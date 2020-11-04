@@ -10,11 +10,53 @@ import { useModal } from "../../components/Modal/Modal.context";
 import CreatePlaylistComponent from "../../components/CreatePlaylist/CreatePlaylist.component";
 import RemovePlaylistComponent from "../../components/RemovePlaylist/RemovePlaylist.component";
 
+const MyPlaylistContent = ({ status, openModal, my_playlists, history }) => {
+  switch (status) {
+    case "idle":
+    case "loading":
+      return (
+        <div className="loading-content">
+          <Loading />
+        </div>
+      );
+
+    case "success":
+      return (
+        <div className="my-playlists-content">
+          <MyPlaylistItem
+            createPlaylist
+            useCover
+            createPlaylistOnClick={() => openModal(<CreatePlaylistComponent />)}
+          />
+          {my_playlists?.map((playlist) => (
+            <MyPlaylistItem
+              openPlaylist={() => history.push(`/playlist/${playlist.id}`)}
+              removePlaylist={() =>
+                openModal(
+                  <RemovePlaylistComponent
+                    id={playlist.id}
+                    name={playlist.name}
+                  />
+                )
+              }
+              key={playlist.id}
+              {...playlist}
+              useCover
+            />
+          ))}
+        </div>
+      );
+    case "error":
+    default:
+      return <></>;
+  }
+};
+
 const MyPlaylists = () => {
   const history = useHistory();
   const { openModal } = useModal();
   const [MyPlaylistInfo, setMyPlaylistInfo] = useState({});
-  const { isFetching } = useQuery("USER_PLAYLISTS", getUserPlayslistRequest, {
+  const { status } = useQuery("USER_PLAYLISTS", getUserPlayslistRequest, {
     onSuccess: (data) => {
       const extractedMyPlaylistsInfo = MyPlaylistsExtractor(data);
       setMyPlaylistInfo({ ...extractedMyPlaylistsInfo });
@@ -24,36 +66,12 @@ const MyPlaylists = () => {
 
   const { my_playlists } = MyPlaylistInfo;
 
+  const MyPlaylistContentProps = { history, openModal, status, my_playlists };
+
   return (
     <div className="my-playlists">
       <h2>My Playlists</h2>
-      <div
-        className={`my-playlists-content ${
-          isFetching ? "loading-content" : ""
-        }`}
-      >
-        <MyPlaylistItem
-          createPlaylist
-          useCover
-          createPlaylistOnClick={() => openModal(<CreatePlaylistComponent />)}
-        />
-        {my_playlists?.map((playlist) => (
-          <MyPlaylistItem
-            openPlaylist={() => history.push(`/playlist/${playlist.id}`)}
-            removePlaylist={() =>
-              openModal(
-                <RemovePlaylistComponent
-                  id={playlist.id}
-                  name={playlist.name}
-                />
-              )
-            }
-            key={playlist.id}
-            {...playlist}
-            useCover
-          />
-        )) ?? <Loading />}
-      </div>
+      <MyPlaylistContent {...MyPlaylistContentProps} />
     </div>
   );
 };
