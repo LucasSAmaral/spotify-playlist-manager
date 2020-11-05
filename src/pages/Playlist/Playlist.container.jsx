@@ -7,7 +7,7 @@ import { useQuery, queryCache } from "react-query";
 import { PlaylistExtractor, tracksExtractor } from "./Playlist.extractor";
 import TextLoading from "../../components/TextLoading/TextLoading.component";
 import PlaylistItem from "./components/PlaylistItem";
-import { useInfiniteTracksHook } from "./hooks/Playlist.hooks";
+import { useInfiniteSearchHook } from "./hooks/Playlist.hooks";
 import PlaylistImagePlaceholder from "../../components/PlaylistImagePlaceholder.component";
 import AddMusicToPlaylist from "./components/AddMusicToPlaylist";
 
@@ -31,13 +31,13 @@ const Playlist = () => {
 
   const {
     isFetched,
-    trackData,
+    searchData,
     isFetchingMore,
     fetchMore,
     canFetchMore,
-  } = useInfiniteTracksHook("TRACKS", PlaylistInfo.tracksHref);
+  } = useInfiniteSearchHook("TRACKS", PlaylistInfo.tracksHref);
 
-  const tracksInfo = tracksExtractor(trackData);
+  const tracksInfo = tracksExtractor(searchData);
 
   const hasTracksInfo = propOr([], "0", tracksInfo).length > 0;
 

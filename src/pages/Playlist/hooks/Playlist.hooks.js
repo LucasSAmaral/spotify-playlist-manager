@@ -3,10 +3,10 @@ import { useInfiniteQuery } from "react-query";
 import { getHeadersAuthorization } from "../../../helpers/getHeadersAuthorization.helper";
 import { removeAllCookies } from "../../../helpers/removeAllCookies.helper";
 
-export const useInfiniteTracksHook = (queryKey, tracksHref) => {
+export const useInfiniteSearchHook = (queryKey, tracksHref) => {
   const {
     isFetched,
-    data: trackData,
+    data: searchData,
     isFetchingMore,
     fetchMore,
     canFetchMore,
@@ -14,7 +14,6 @@ export const useInfiniteTracksHook = (queryKey, tracksHref) => {
     queryKey,
     async (key, href = tracksHref) => {
       const { Authorization } = getHeadersAuthorization();
-
       try {
         const { data } = await Axios({
           method: "GET",
@@ -30,11 +29,17 @@ export const useInfiniteTracksHook = (queryKey, tracksHref) => {
       }
     },
     {
-      getFetchMore: (lastGroup) => lastGroup.next,
+      getFetchMore: (lastGroup) => {
+        if (queryKey.includes("SEARCH_")) {
+          const key = queryKey.split("_")[1];
+          return lastGroup[key].next;
+        }
+        return lastGroup.next;
+      },
       enabled: tracksHref,
       refetchOnWindowFocus: false,
     }
   );
 
-  return { trackData, isFetchingMore, isFetched, fetchMore, canFetchMore };
+  return { searchData, isFetchingMore, isFetched, fetchMore, canFetchMore };
 };
