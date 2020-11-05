@@ -4,7 +4,8 @@ import SearchParam from "../Checkbox/SearchParams.component";
 import { useQuery } from "react-query";
 import { CreatePlaylistFormContainer } from "../CreatePlaylist/CreatePlaylist.component";
 import { StyledInputComponent } from "../Input/StyledInput.component";
-import { SearchRequest } from "./Search.request";
+import { SearchRequest } from "../Search/Search.request";
+import SearchResultContent from "../Search/SearchResult.content";
 
 const paramsList = ["album", "artist", "playlist", "track", "show", "episode"];
 
@@ -34,14 +35,16 @@ const AddMusicComponent = () => {
   };
 
   const handleQuery = (value) => {
-    const query = value.replace(/ /g, "%20");
-    setQuery(query);
-    refetch();
+    if (value !== "") {
+      const query = value.replace(/ /g, "%20");
+      setQuery(query);
+      refetch();
+    } else {
+      setQuery("");
+    }
   };
 
   const searchResultKeys = searchResult ? Object.keys(searchResult) : [];
-
-  console.log("tega", selectedTab);
 
   return (
     <AddMusicContainer>
@@ -69,15 +72,22 @@ const AddMusicComponent = () => {
         />
       </AddMusicSearchContainer>
 
-      {!isLoading && (
+      {!isLoading && query !== "" && (
         <AddMusicSearchResults>
           <SearchTab>
-            {searchResultKeys.map((searchResultKey) => (
-              <SearchTabItem onClick={() => setSelectedTab(searchResultKey)}>
+            {searchResultKeys.map((searchResultKey, index) => (
+              <SearchTabItem
+                key={index}
+                onClick={() => setSelectedTab(searchResultKey)}
+              >
                 {searchResultKey}
               </SearchTabItem>
             ))}
           </SearchTab>
+          <SearchResultContent
+            selectedTab={selectedTab}
+            searchResult={searchResult}
+          />
         </AddMusicSearchResults>
       )}
     </AddMusicContainer>
