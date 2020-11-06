@@ -16,24 +16,9 @@ export const searchTracksExtractor = (searchData) => {
   }, []);
 };
 
-export const searchArtistsExtractor = (searchData) => {
-  const safeSearchData = propOr([], "0", searchData);
-  console.log("artists extractor", safeSearchData);
-};
-
 export const searchAlbumsExtractor = (searchData) => {
   const safeSearchData = propOr([], "0", searchData);
   console.log("albums extractor", safeSearchData);
-};
-
-export const searchPlaylistsExtractor = (searchData) => {
-  const safeSearchData = propOr([], "0", searchData);
-  console.log("playlists extractor", safeSearchData);
-};
-
-export const searchShowsExtractor = (searchData) => {
-  const safeSearchData = propOr([], "0", searchData);
-  console.log("shows extractor", safeSearchData);
 };
 
 export const searchEpisodesExtractor = (searchData) => {

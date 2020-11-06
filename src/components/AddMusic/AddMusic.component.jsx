@@ -7,7 +7,7 @@ import { StyledInputComponent } from "../Input/StyledInput.component";
 import { SearchRequest } from "../Search/Search.request";
 import SearchResultContent from "../Search/SearchResult.content";
 
-const paramsList = ["album", "artist", "playlist", "track", "show", "episode"];
+const paramsList = ["album", "track", "episode"];
 
 const AddMusicComponent = () => {
   const [params, setParams] = useState([]);
