@@ -9,10 +9,10 @@ import SearchResultComponent from "./SearchResult.component";
 const SearchResultContent = ({ selectedTab, searchResult }) => {
   switch (selectedTab) {
     case "tracks": {
-      const { href } = searchResult?.tracks ?? "";
+      const { href: tracksHref } = searchResult?.tracks ?? "";
       return (
         <SearchResultComponent
-          href={href}
+          href={tracksHref}
           selectedTab="tracks"
           extractor={searchTracksExtractor}
         />
@@ -20,10 +20,10 @@ const SearchResultContent = ({ selectedTab, searchResult }) => {
     }
 
     case "albums": {
-      const { href } = searchResult?.albums ?? "";
+      const { href: albumsHref } = searchResult?.albums ?? "";
       return (
         <SearchResultComponent
-          href={href}
+          href={albumsHref}
           selectedTab="albums"
           extractor={searchAlbumsExtractor}
         />
@@ -31,10 +31,10 @@ const SearchResultContent = ({ selectedTab, searchResult }) => {
     }
 
     case "episodes": {
-      const { href } = searchResult?.episodes ?? "";
+      const { href: episodesHref } = searchResult?.episodes ?? "";
       return (
         <SearchResultComponent
-          href={href}
+          href={episodesHref}
           selectedTab="episodes"
           extractor={searchEpisodesExtractor}
         />
