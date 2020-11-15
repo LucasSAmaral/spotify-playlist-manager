@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./Playlist.scss";
-import { propOr } from "ramda";
 import { useParams } from "react-router-dom";
 import { getPlaylistRequest } from "./Playlist.request";
 import { useQuery, queryCache } from "react-query";
 import { PlaylistExtractor, tracksExtractor } from "./Playlist.extractor";
-import { useInfiniteSearchHook } from "./hooks/Playlist.hooks";
+import { useInfiniteQueryHook } from "../../hooks/InfinityQuery.hooks";
 
-import PlaylistItem from "./components/PlaylistItem.component";
-import AddMusicToPlaylist from "./components/AddMusicToPlaylist.component";
 import Header from "../../components/Header/Header.component";
 import PlaylistInfoComponent from "./components/PlaylistInfo.component";
+import TrackList from "./components/TrackList.component";
 
 const Playlist = () => {
   const { id } = useParams();
@@ -36,11 +34,9 @@ const Playlist = () => {
     isFetchingMore,
     fetchMore,
     canFetchMore,
-  } = useInfiniteSearchHook("TRACKS", PlaylistInfo.tracksHref);
+  } = useInfiniteQueryHook("TRACKS", PlaylistInfo.tracksHref);
 
   const tracksInfo = tracksExtractor(searchData);
-
-  const hasTracksInfo = propOr([], "0", tracksInfo).length > 0;
 
   return (
     <>
@@ -54,15 +50,8 @@ const Playlist = () => {
           OwnerName={PlaylistInfo?.owner?.name}
         />
 
-        <ul className="tracks-list">
-          {hasTracksInfo && <PlaylistItem header />}
-          {!hasTracksInfo && isFetched ? <AddMusicToPlaylist /> : <></>}
-          {tracksInfo?.map((tracks) =>
-            tracks?.map((track, index) => (
-              <PlaylistItem track={track} key={index} />
-            ))
-          )}
-        </ul>
+        <TrackList tracksInfo={tracksInfo} isFetched={isFetched} />
+
         {!isFetchingMore && canFetchMore && (
           <button className="load-more-tracks" onClick={() => fetchMore()}>
             LOAD MORE TRACKS
