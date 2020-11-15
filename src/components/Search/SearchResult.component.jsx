@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import AudioPreview from "../../pages/Playlist/components/AudioPreview";
+import AudioPreview from "../../pages/Playlist/components/AudioPreview.component";
 import { useInfiniteSearchHook } from "../../pages/Playlist/hooks/Playlist.hooks";
 
 const SearchResultComponent = ({ href, selectedTab, extractor }) => {

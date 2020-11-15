@@ -1,5 +1,5 @@
 import React from "react";
-import AudioPreview from "./AudioPreview";
+import AudioPreview from "./AudioPreview.component";
 
 const PlaylistItem = ({ track, header = false }) => {
   if (header) {
