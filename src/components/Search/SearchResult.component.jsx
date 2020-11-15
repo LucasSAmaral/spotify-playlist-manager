@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import AudioPreview from "../../pages/Playlist/components/AudioPreview.component";
-import { useInfiniteSearchHook } from "../../pages/Playlist/hooks/Playlist.hooks";
+import { useInfiniteQueryHook } from "../../hooks/InfinityQuery.hooks";
 
 const SearchResultComponent = ({ href, selectedTab, extractor }) => {
   const {
@@ -9,7 +9,7 @@ const SearchResultComponent = ({ href, selectedTab, extractor }) => {
     isFetchingMore,
     fetchMore,
     canFetchMore,
-  } = useInfiniteSearchHook(`SEARCH_${selectedTab}`, `${href}&market=US`);
+  } = useInfiniteQueryHook(`SEARCH_${selectedTab}`, `${href}&market=US`);
   const extractedSearchData = extractor(searchData);
 
   switch (selectedTab) {

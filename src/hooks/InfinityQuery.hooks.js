@@ -1,9 +1,9 @@
 import Axios from "axios";
 import { useInfiniteQuery } from "react-query";
-import { getHeadersAuthorization } from "../../../helpers/getHeadersAuthorization.helper";
-import { removeAllCookies } from "../../../helpers/removeAllCookies.helper";
+import { getHeadersAuthorization } from "../helpers/getHeadersAuthorization.helper";
+import { removeAllCookies } from "../helpers/removeAllCookies.helper";
 
-export const useInfiniteSearchHook = (queryKey, tracksHref) => {
+export const useInfiniteQueryHook = (queryKey, tracksHref) => {
   const {
     isFetched,
     data: searchData,
