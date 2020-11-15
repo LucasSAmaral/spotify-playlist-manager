@@ -4,9 +4,10 @@ import { useQuery } from "react-query";
 import { useHistory } from "react-router-dom";
 import { getUserPlayslistRequest } from "./MyPlaylists.request";
 import { MyPlaylistsExtractor } from "./MyPlaylists.extractor";
-import Loading from "../../components/Loading/Loading.component";
-import MyPlaylistItem from "./components/MyPlaylistItem.component";
 import { useModal } from "../../components/Modal/Modal.context";
+import Loading from "../../components/Loading/Loading.component";
+import Header from "../../components/Header/Header.component";
+import MyPlaylistItem from "./components/MyPlaylistItem.component";
 import CreatePlaylistComponent from "../../components/CreatePlaylist/CreatePlaylist.component";
 import RemovePlaylistComponent from "../../components/RemovePlaylist/RemovePlaylist.component";
 
@@ -69,10 +70,13 @@ const MyPlaylists = () => {
   const MyPlaylistContentProps = { history, openModal, status, my_playlists };
 
   return (
-    <div className="my-playlists">
-      <h2>My Playlists</h2>
-      <MyPlaylistContent {...MyPlaylistContentProps} />
-    </div>
+    <>
+      <Header />
+      <div className="my-playlists">
+        <h2>My Playlists</h2>
+        <MyPlaylistContent {...MyPlaylistContentProps} />
+      </div>
+    </>
   );
 };
 
