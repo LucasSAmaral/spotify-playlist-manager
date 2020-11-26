@@ -10,6 +10,7 @@ import Header from "../../components/Header/Header.component";
 import MyPlaylistItem from "./components/MyPlaylistItem.component";
 import CreatePlaylistComponent from "../../components/CreatePlaylist/CreatePlaylist.component";
 import RemovePlaylistComponent from "../../components/RemovePlaylist/RemovePlaylist.component";
+import CreatePlaylist from "./components/CreatePlaylist.component";
 
 const MyPlaylistContent = ({ status, openModal, my_playlists, history }) => {
   switch (status) {
@@ -24,8 +25,7 @@ const MyPlaylistContent = ({ status, openModal, my_playlists, history }) => {
     case "success":
       return (
         <div className="my-playlists-content">
-          <MyPlaylistItem
-            createPlaylist
+          <CreatePlaylist
             useCover
             createPlaylistOnClick={() => openModal(<CreatePlaylistComponent />)}
           />

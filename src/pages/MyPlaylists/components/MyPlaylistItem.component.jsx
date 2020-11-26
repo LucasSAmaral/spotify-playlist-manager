@@ -8,27 +8,10 @@ const MyPlaylistItem = ({
   total_tracks,
   owner,
   useCover = false,
-  createPlaylistOnClick,
   openPlaylist,
   removePlaylist,
-  createPlaylist = false,
 }) => {
   const userInfo = queryCache.getQueryData("USER_INFO");
-
-  if (createPlaylist) {
-    return (
-      <div className="my-playlist-item create-playlist">
-        +
-        {useCover ? (
-          <div className="my-playlist-item-cover">
-            <h3 onClick={createPlaylistOnClick}>Create New Playlist</h3>
-          </div>
-        ) : (
-          <></>
-        )}
-      </div>
-    );
-  }
 
   return (
     <div className="my-playlist-item">
