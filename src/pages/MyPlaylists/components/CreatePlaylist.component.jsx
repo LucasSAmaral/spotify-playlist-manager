@@ -1,16 +1,15 @@
 import React from "react";
+import CoverComponent from "./Cover.component";
 
-const CreatePlaylist = ({ useCover = false, createPlaylistOnClick }) => {
+const CreatePlaylist = ({ useCover, createPlaylistOnClick }) => {
   return (
     <div className="my-playlist-item create-playlist">
       +
-      {useCover ? (
-        <div className="my-playlist-item-cover">
-          <h3 onClick={createPlaylistOnClick}>Create New Playlist</h3>
-        </div>
-      ) : (
-        <></>
-      )}
+      <CoverComponent
+        useCover={useCover}
+        createPlaylist
+        createPlaylistHandler={createPlaylistOnClick}
+      />
     </div>
   );
 };
