@@ -1,15 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import AudioPreview from "../../pages/Playlist/components/AudioPreview.component";
-import { last } from "ramda";
 import { useLocation } from "react-router-dom";
 import { useMutation, queryCache } from "react-query";
 import { useInfiniteQueryHook } from "../../hooks/InfinityQuery.hooks";
 import { addItemRequest } from "./AddItem.request";
-
-const getPlaylistId = (pathname) => {
-  return last(pathname.split("/"));
-};
+import { getPlaylistId } from "../../pages/Playlist/helpers/getPlaylistId";
 
 const SearchResultComponent = ({ href, selectedTab, extractor }) => {
   const { pathname } = useLocation();
@@ -58,12 +54,11 @@ const SearchResultComponent = ({ href, selectedTab, extractor }) => {
                   <div className="track-list-item-preview">
                     {data.preview && <AudioPreview previewUrl={data.preview} />}
                   </div>
-                  <div
-                    className="track-list-item-options"
+                  <AddItemToPlaylist
                     onClick={() => mutate({ userId, playlistId, data })}
                   >
                     Add to Playlist
-                  </div>
+                  </AddItemToPlaylist>
                 </li>
               ))
             )}
@@ -85,6 +80,11 @@ const SearchResultWrapper = styled.div`
   height: 500px;
   overflow: hidden;
   overflow-y: scroll;
+`;
+
+const AddItemToPlaylist = styled.div`
+  text-align: end;
+  cursor: pointer;
 `;
 
 export default SearchResultComponent;
