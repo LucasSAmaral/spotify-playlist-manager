@@ -1,11 +1,8 @@
 import React from "react";
-import { propOr } from "ramda";
 import AddMusicToPlaylist from "./AddMusicToPlaylist.component";
 import PlaylistItem from "./PlaylistItem.component";
 
-const TrackListComponent = ({ isFetched, tracksInfo }) => {
-  const hasTracksInfo = propOr([], "0", tracksInfo).length > 0;
-
+const TrackListComponent = ({ isFetched, tracksInfo, hasTracksInfo }) => {
   return (
     <ul className="tracks-list">
       {hasTracksInfo && <PlaylistItem header />}

@@ -9,6 +9,7 @@ import { useInfiniteQueryHook } from "../../hooks/InfinityQuery.hooks";
 import Header from "../../components/Header/Header.component";
 import PlaylistInfoComponent from "./components/PlaylistInfo.component";
 import TrackList from "./components/TrackList.component";
+import { propOr } from "ramda";
 
 const Playlist = () => {
   const { id } = useParams();
@@ -38,6 +39,8 @@ const Playlist = () => {
 
   const tracksInfo = tracksExtractor(searchData);
 
+  const hasTracksInfo = propOr([], "0", tracksInfo).length > 0;
+
   return (
     <>
       <Header />
@@ -48,9 +51,14 @@ const Playlist = () => {
           PlaylistImage={PlaylistInfo.image}
           PlaylistDescription={PlaylistInfo?.description}
           OwnerName={PlaylistInfo?.owner?.name}
+          hasTracksInfo={hasTracksInfo}
         />
 
-        <TrackList tracksInfo={tracksInfo} isFetched={isFetched} />
+        <TrackList
+          tracksInfo={tracksInfo}
+          isFetched={isFetched}
+          hasTracksInfo={hasTracksInfo}
+        />
 
         {!isFetchingMore && canFetchMore && (
           <button className="load-more-tracks" onClick={() => fetchMore()}>
