@@ -1,7 +1,23 @@
 import React from "react";
-import AudioPreview from "./AudioPreview";
+import AudioPreview from "./AudioPreview.component";
+import { useMutation, queryCache } from "react-query";
+import { removeItemRequest } from "./RemoveItem.request";
+import { useLocation } from "react-router-dom";
+import styled from "styled-components";
+import { getPlaylistId } from "../helpers/getPlaylistId";
 
 const PlaylistItem = ({ track, header = false }) => {
+  const { pathname } = useLocation();
+  const playlistId = getPlaylistId(pathname);
+  const userInfo = queryCache.getQueryData("USER_INFO");
+  const userId = userInfo.id;
+  const [mutate] = useMutation(removeItemRequest, {
+    onSuccess: () => {
+      queryCache.invalidateQueries("PLAYLIST");
+      queryCache.invalidateQueries("TRACKS");
+    },
+  });
+  const uri = track?.uri;
   if (header) {
     return (
       <li className="track-list-item header">
@@ -45,9 +61,18 @@ const PlaylistItem = ({ track, header = false }) => {
       <div className="track-list-item-preview">
         {track.previewUrl && <AudioPreview previewUrl={track.previewUrl} />}
       </div>
-      <div className="track-list-item-options">...</div>
+      <RemoveItemFromPlaylist
+        onClick={() => mutate({ userId, playlistId, uri })}
+      >
+        Remove Item from Playlist
+      </RemoveItemFromPlaylist>
     </li>
   );
 };
+
+const RemoveItemFromPlaylist = styled.div`
+  text-align: end;
+  cursor: pointer;
+`;
 
 export default PlaylistItem;

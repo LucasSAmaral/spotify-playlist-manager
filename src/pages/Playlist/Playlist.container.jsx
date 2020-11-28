@@ -4,10 +4,12 @@ import { useParams } from "react-router-dom";
 import { getPlaylistRequest } from "./Playlist.request";
 import { useQuery, queryCache } from "react-query";
 import { PlaylistExtractor, tracksExtractor } from "./Playlist.extractor";
-import TextLoading from "../../components/TextLoading/TextLoading.component";
-import PlaylistItem from "./components/PlaylistItem";
-import { useInfiniteTracksHook } from "./hooks/Playlist.hooks";
-import PlaylistImagePlaceholder from "../../components/PlaylistImagePlaceholder.component";
+import { useInfiniteQueryHook } from "../../hooks/InfinityQuery.hooks";
+
+import Header from "../../components/Header/Header.component";
+import PlaylistInfoComponent from "./components/PlaylistInfo.component";
+import TrackList from "./components/TrackList.component";
+import { propOr } from "ramda";
 
 const Playlist = () => {
   const { id } = useParams();
@@ -28,62 +30,43 @@ const Playlist = () => {
   });
 
   const {
-    trackData,
+    isFetched,
+    searchData,
     isFetchingMore,
     fetchMore,
     canFetchMore,
-  } = useInfiniteTracksHook("TRACKS", PlaylistInfo.tracksHref);
+  } = useInfiniteQueryHook("TRACKS", PlaylistInfo.tracksHref);
 
-  const tracksInfo = tracksExtractor(trackData);
+  const tracksInfo = tracksExtractor(searchData);
+
+  const hasTracksInfo = propOr([], "0", tracksInfo).length > 0;
 
   return (
-    <div className="playlist">
-      <h2>{PlaylistInfo?.name ?? "Loading..."}</h2>
+    <>
+      <Header />
+      <div className="playlist">
+        <h2>{PlaylistInfo?.name ?? "Loading..."}</h2>
 
-      <div className="playlist-info">
-        {PlaylistInfo.image ? (
-          <figure>
-            <img src={PlaylistInfo.image} alt="" />
-          </figure>
-        ) : (
-          <figure>
-            <PlaylistImagePlaceholder />
-          </figure>
+        <PlaylistInfoComponent
+          PlaylistImage={PlaylistInfo.image}
+          PlaylistDescription={PlaylistInfo?.description}
+          OwnerName={PlaylistInfo?.owner?.name}
+          hasTracksInfo={hasTracksInfo}
+        />
+
+        <TrackList
+          tracksInfo={tracksInfo}
+          isFetched={isFetched}
+          hasTracksInfo={hasTracksInfo}
+        />
+
+        {!isFetchingMore && canFetchMore && (
+          <button className="load-more-tracks" onClick={() => fetchMore()}>
+            LOAD MORE TRACKS
+          </button>
         )}
-
-        <div className="playlist-description">
-          <h3>Description:</h3>
-          <h4>
-            {PlaylistInfo.description !== ""
-              ? PlaylistInfo?.description ?? (
-                  <TextLoading width="100%" height="18px" minWidth="395px" />
-                )
-              : "There is no description for this playlist."}
-          </h4>
-
-          <h3>Owner:</h3>
-          <h4>
-            {PlaylistInfo.owner?.name ?? (
-              <TextLoading width="125px" height="18px" minWidth="125px" />
-            )}
-          </h4>
-        </div>
       </div>
-
-      <ul className="tracks-list">
-        <PlaylistItem header />
-        {tracksInfo?.map((tracks) =>
-          tracks?.map((track, index) => (
-            <PlaylistItem track={track} key={index} />
-          ))
-        )}
-      </ul>
-      {!isFetchingMore && canFetchMore && (
-        <button className="load-more-tracks" onClick={() => fetchMore()}>
-          LOAD MORE TRACKS
-        </button>
-      )}
-    </div>
+    </>
   );
 };
 
