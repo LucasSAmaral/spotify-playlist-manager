@@ -1,9 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 import AudioPreview from "../../pages/Playlist/components/AudioPreview.component";
+import { last } from "ramda";
+import { useLocation } from "react-router-dom";
+import { useMutation, queryCache } from "react-query";
 import { useInfiniteQueryHook } from "../../hooks/InfinityQuery.hooks";
+import { addItemRequest } from "./AddItem.request";
+
+const getPlaylistId = (pathname) => {
+  return last(pathname.split("/"));
+};
 
 const SearchResultComponent = ({ href, selectedTab, extractor }) => {
+  const { pathname } = useLocation();
+  const playlistId = getPlaylistId(pathname);
+  const userInfo = queryCache.getQueryData("USER_INFO");
+  const userId = userInfo.id;
   const {
     searchData,
     isFetchingMore,
@@ -11,7 +23,12 @@ const SearchResultComponent = ({ href, selectedTab, extractor }) => {
     canFetchMore,
   } = useInfiniteQueryHook(`SEARCH_${selectedTab}`, `${href}&market=US`);
   const extractedSearchData = extractor(searchData);
-
+  const [mutate] = useMutation(addItemRequest, {
+    onSuccess: () => {
+      queryCache.invalidateQueries("PLAYLIST");
+      queryCache.invalidateQueries("TRACKS");
+    },
+  });
   switch (selectedTab) {
     case "tracks":
       return (
@@ -23,7 +40,6 @@ const SearchResultComponent = ({ href, selectedTab, extractor }) => {
               <div className="track-list-item-preview">Preview</div>
               <div className="track-list-item-options">Add</div>
             </li>
-
             {extractedSearchData?.map((extractedData) =>
               extractedData?.map((data, index) => (
                 <li key={index} className="track-list-item">
@@ -42,7 +58,12 @@ const SearchResultComponent = ({ href, selectedTab, extractor }) => {
                   <div className="track-list-item-preview">
                     {data.preview && <AudioPreview previewUrl={data.preview} />}
                   </div>
-                  <div className="track-list-item-options">...</div>
+                  <div
+                    className="track-list-item-options"
+                    onClick={() => mutate({ userId, playlistId, data })}
+                  >
+                    Add to Playlist
+                  </div>
                 </li>
               ))
             )}
