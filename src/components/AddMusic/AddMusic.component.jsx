@@ -7,7 +7,8 @@ import { StyledInputComponent } from "../Input/StyledInput.component";
 import { SearchRequest } from "../Search/Search.request";
 import SearchResultContent from "../Search/SearchResult.content";
 
-const paramsList = ["album", "track", "episode"];
+// const paramsList = ["album", "track", "episode"];
+const paramsList = ["track"];
 
 const AddMusicComponent = () => {
   const [params, setParams] = useState([]);
@@ -66,7 +67,7 @@ const AddMusicComponent = () => {
         <AddMusicInput
           type="search"
           disabled={params.length === 0}
-          placeholder="Search"
+          placeholder="Search for artists, tracks or episodes"
           ref={addMusicInput}
           onChange={(e) => handleQuery(e.target.value)}
         />

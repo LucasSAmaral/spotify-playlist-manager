@@ -27,6 +27,7 @@ export const tracksExtractor = (trackInfo) => {
           externalUrl: curr.track.external_urls.spotify,
           trackId: curr.track.id,
           previewUrl: curr.track.preview_url,
+          uri: curr.track.uri,
         },
       ];
     }, [])
