@@ -7,8 +7,7 @@ import { removeItemRequest } from "./RemoveItem.request";
 
 const PlaylistItem = ({ track, header = false, ownerId }) => {
   const { playlistId } = Cookie.get();
-  const userInfo = queryCache.getQueryData("USER_INFO");
-  const userId = userInfo.id;
+  const { userId } = Cookie.get();
   const [mutate] = useMutation(removeItemRequest, {
     onSuccess: () => {
       queryCache.invalidateQueries("PLAYLIST");

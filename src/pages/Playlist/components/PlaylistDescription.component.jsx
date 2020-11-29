@@ -1,9 +1,9 @@
 import React from "react";
-import { queryCache } from "react-query";
 import styled from "styled-components";
+import Cookie from "js-cookie";
 import AddMusicComponent from "../../../components/AddMusic/AddMusic.component";
-import { useModal } from "../../../components/Modal/Modal.context";
 import TextLoading from "../../../components/TextLoading/TextLoading.component";
+import { useModal } from "../../../components/Modal/Modal.context";
 
 const PlaylistDescriptionComponent = ({
   description,
@@ -11,8 +11,7 @@ const PlaylistDescriptionComponent = ({
   hasTracksInfo,
 }) => {
   const { openModal } = useModal();
-  const userInfo = queryCache.getQueryData("USER_INFO");
-  const userId = userInfo.id;
+  const { userId } = Cookie.get();
   return (
     <div className="playlist-description">
       <h3>Description:</h3>

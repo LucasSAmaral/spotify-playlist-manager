@@ -26,7 +26,9 @@ const MyProfile = () => {
     },
     refetchOnWindowFocus: false,
   });
-  const { display_name, profile_image } = state;
+  const { display_name, profile_image, user_id } = state;
+
+  Cookie.set("userId", user_id);
 
   const ProfileImage = (status) => {
     switch (status) {
