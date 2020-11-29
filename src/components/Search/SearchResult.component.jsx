@@ -8,8 +8,7 @@ import { addItemRequest } from "./AddItem.request";
 
 const SearchResultComponent = ({ href, selectedTab, extractor }) => {
   const { playlistId } = Cookie.get();
-  const userInfo = queryCache.getQueryData("USER_INFO");
-  const userId = userInfo.id;
+  const { userId } = Cookie.get();
   const {
     searchData,
     isFetchingMore,

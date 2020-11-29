@@ -1,8 +1,8 @@
 import React from "react";
-
+import styled from "styled-components";
+import Cookie from "js-cookie";
 import { useForm } from "react-hook-form";
 import { queryCache, useMutation } from "react-query";
-import styled from "styled-components";
 import { StyledButton } from "../Button/StyledButton.component";
 import { StyledInputComponent } from "../Input/StyledInput.component";
 import { useModal } from "../Modal/Modal.context";
@@ -11,15 +11,13 @@ import { createPlaylistRequest } from "./CreatePlaylist.request";
 const CreatePlaylistComponent = () => {
   const { register, handleSubmit } = useForm();
   const { closeModal } = useModal();
+  const { userId } = Cookie.get();
   const [mutate] = useMutation(createPlaylistRequest, {
     onSuccess: () => {
       queryCache.invalidateQueries("USER_PLAYLISTS");
       closeModal();
     },
   });
-
-  const userInfo = queryCache.getQueryData("USER_INFO");
-  const userId = userInfo.id;
 
   const onSubmit = async (data) => {
     const { playlistName, description } = data;
