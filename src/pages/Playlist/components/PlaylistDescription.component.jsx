@@ -4,6 +4,7 @@ import Cookie from "js-cookie";
 import AddMusicComponent from "../../../components/AddMusic/AddMusic.component";
 import TextLoading from "../../../components/TextLoading/TextLoading.component";
 import { useModal } from "../../../components/Modal/Modal.context";
+import { StyledButton } from "../../../components/Button/StyledButton.component";
 
 const PlaylistDescriptionComponent = ({
   description,
@@ -40,15 +41,6 @@ const PlaylistDescriptionComponent = ({
   );
 };
 
-const AddItemsToPlaylistButton = styled.button`
-  height: 30px;
-  border-radius: 3px;
-  max-width: 200px;
-  border: 1px solid whitesmoke;
-  background-color: #0f0f0f;
-  font-weight: bold;
-  color: #1db954;
-  cursor: pointer;
-`;
+const AddItemsToPlaylistButton = styled(StyledButton)``;
 
 export default PlaylistDescriptionComponent;
