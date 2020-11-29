@@ -48,15 +48,14 @@ const Playlist = () => {
         <h2>{PlaylistInfo?.name ?? "Loading..."}</h2>
 
         <PlaylistInfoComponent
-          PlaylistImage={PlaylistInfo.image}
-          PlaylistDescription={PlaylistInfo?.description}
-          OwnerName={PlaylistInfo?.owner?.name}
+          {...PlaylistInfo}
           hasTracksInfo={hasTracksInfo}
         />
 
         <TrackList
           tracksInfo={tracksInfo}
           isFetched={isFetched}
+          ownerId={PlaylistInfo?.owner?.id}
           hasTracksInfo={hasTracksInfo}
         />
 

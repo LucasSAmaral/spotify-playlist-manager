@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { getPlaylistId } from "../helpers/getPlaylistId";
 
-const PlaylistItem = ({ track, header = false }) => {
+const PlaylistItem = ({ track, header = false, ownerId }) => {
   const { pathname } = useLocation();
   const playlistId = getPlaylistId(pathname);
   const userInfo = queryCache.getQueryData("USER_INFO");
@@ -61,11 +61,13 @@ const PlaylistItem = ({ track, header = false }) => {
       <div className="track-list-item-preview">
         {track.previewUrl && <AudioPreview previewUrl={track.previewUrl} />}
       </div>
-      <RemoveItemFromPlaylist
-        onClick={() => mutate({ userId, playlistId, uri })}
-      >
-        Remove Item from Playlist
-      </RemoveItemFromPlaylist>
+      {ownerId === userId && (
+        <RemoveItemFromPlaylist
+          onClick={() => mutate({ userId, playlistId, uri })}
+        >
+          Remove Item from Playlist
+        </RemoveItemFromPlaylist>
+      )}
     </li>
   );
 };

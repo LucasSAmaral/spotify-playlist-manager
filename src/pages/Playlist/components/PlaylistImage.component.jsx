@@ -1,12 +1,12 @@
 import React from "react";
 import PlaylistImagePlaceholder from "../../../components/PlaylistImagePlaceholder.component";
 
-const PlaylistImageComponent = ({ PlaylistImage }) => {
+const PlaylistImageComponent = ({ image }) => {
   return (
     <>
-      {PlaylistImage ? (
+      {image ? (
         <figure>
-          <img src={PlaylistImage} alt="" />
+          <img src={image} alt="" />
         </figure>
       ) : (
         <figure>
