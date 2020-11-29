@@ -1,5 +1,6 @@
 import React from "react";
 import AddMusicToPlaylist from "./AddMusicToPlaylist.component";
+import PlaylistHeader from "./PlaylistHeader.component";
 import PlaylistItem from "./PlaylistItem.component";
 
 const TrackListComponent = ({
@@ -10,7 +11,7 @@ const TrackListComponent = ({
 }) => {
   return (
     <ul className="tracks-list">
-      {hasTracksInfo && <PlaylistItem header />}
+      {hasTracksInfo && <PlaylistHeader />}
       {!hasTracksInfo && isFetched ? <AddMusicToPlaylist /> : <></>}
       {tracksInfo?.map((tracks) =>
         tracks?.map((track, index) => (

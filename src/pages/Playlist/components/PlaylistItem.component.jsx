@@ -5,26 +5,16 @@ import AudioPreview from "./AudioPreview.component";
 import { useMutation, queryCache } from "react-query";
 import { removeItemRequest } from "./RemoveItem.request";
 
-const PlaylistItem = ({ track, header = false, ownerId }) => {
+const PlaylistItem = ({ track, ownerId }) => {
   const { playlistId } = Cookie.get();
   const { userId } = Cookie.get();
+  const uri = track?.uri;
   const [mutate] = useMutation(removeItemRequest, {
     onSuccess: () => {
       queryCache.invalidateQueries("PLAYLIST");
       queryCache.invalidateQueries("TRACKS");
     },
   });
-  const uri = track?.uri;
-  if (header) {
-    return (
-      <li className="track-list-item header">
-        <div className="track-list-item-title">Title</div>
-        <div className="track-list-item-album">Album</div>
-        <div className="track-list-item-preview">Preview</div>
-        <div className="track-list-item-options">Options</div>
-      </li>
-    );
-  }
   return (
     <li className="track-list-item">
       <div className="track-list-item-title">
