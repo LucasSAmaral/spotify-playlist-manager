@@ -1,15 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import Cookie from "js-cookie";
 import AudioPreview from "../../pages/Playlist/components/AudioPreview.component";
-import { useLocation } from "react-router-dom";
 import { useMutation, queryCache } from "react-query";
 import { useInfiniteQueryHook } from "../../hooks/InfinityQuery.hooks";
 import { addItemRequest } from "./AddItem.request";
-import { getPlaylistId } from "../../pages/Playlist/helpers/getPlaylistId";
 
 const SearchResultComponent = ({ href, selectedTab, extractor }) => {
-  const { pathname } = useLocation();
-  const playlistId = getPlaylistId(pathname);
+  const { playlistId } = Cookie.get();
   const userInfo = queryCache.getQueryData("USER_INFO");
   const userId = userInfo.id;
   const {

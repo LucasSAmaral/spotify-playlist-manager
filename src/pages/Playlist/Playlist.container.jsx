@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Cookie from "js-cookie";
 import "./Playlist.scss";
 import { useParams } from "react-router-dom";
 import { getPlaylistRequest } from "./Playlist.request";
@@ -13,6 +14,7 @@ import { propOr } from "ramda";
 
 const Playlist = () => {
   const { id } = useParams();
+  Cookie.set("playlistId", id);
   const [PlaylistInfo, setPlaylistInfo] = useState({});
 
   useEffect(() => {

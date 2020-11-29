@@ -1,14 +1,12 @@
 import React from "react";
+import styled from "styled-components";
+import Cookie from "js-cookie";
 import AudioPreview from "./AudioPreview.component";
 import { useMutation, queryCache } from "react-query";
 import { removeItemRequest } from "./RemoveItem.request";
-import { useLocation } from "react-router-dom";
-import styled from "styled-components";
-import { getPlaylistId } from "../helpers/getPlaylistId";
 
 const PlaylistItem = ({ track, header = false, ownerId }) => {
-  const { pathname } = useLocation();
-  const playlistId = getPlaylistId(pathname);
+  const { playlistId } = Cookie.get();
   const userInfo = queryCache.getQueryData("USER_INFO");
   const userId = userInfo.id;
   const [mutate] = useMutation(removeItemRequest, {
