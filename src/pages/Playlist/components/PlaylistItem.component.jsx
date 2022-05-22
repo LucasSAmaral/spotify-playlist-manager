@@ -7,10 +7,10 @@ import { removeItemRequest } from "./RemoveItem.request";
 import { ownerPlaylistClassHelper } from "../../../helpers/ownerPlaylistClass.helper";
 
 const PlaylistItem = ({ track, ownerId }) => {
-  const ownerPlaylistClass = ownerPlaylistClassHelper(ownerId, userId);
-  const { playlistId } = Cookie.get();
   const { userId } = Cookie.get();
+  const { playlistId } = Cookie.get();
   const uri = track?.uri;
+  const ownerPlaylistClass = ownerPlaylistClassHelper(ownerId, userId);
   const [mutate] = useMutation(removeItemRequest, {
     onSuccess: () => {
       queryCache.invalidateQueries("PLAYLIST");
