@@ -4,8 +4,10 @@ import Cookie from "js-cookie";
 import AudioPreview from "./AudioPreview.component";
 import { useMutation, queryCache } from "react-query";
 import { removeItemRequest } from "./RemoveItem.request";
+import { ownerPlaylistClassHelper } from "../../../helpers/ownerPlaylistClass.helper";
 
 const PlaylistItem = ({ track, ownerId }) => {
+  const ownerPlaylistClass = ownerPlaylistClassHelper(ownerId, userId);
   const { playlistId } = Cookie.get();
   const { userId } = Cookie.get();
   const uri = track?.uri;
@@ -16,7 +18,7 @@ const PlaylistItem = ({ track, ownerId }) => {
     },
   });
   return (
-    <li className="track-list-item">
+    <li className={`track-list-item ${ownerPlaylistClass}`}>
       <div className="track-list-item-title">
         <div className="track-list-item-wrapper">
           <figure>
@@ -45,7 +47,7 @@ const PlaylistItem = ({ track, ownerId }) => {
           {track.album.name}
         </a>
       </div>
-      <div className="track-list-item-preview">
+      <div className={`track-list-item-preview ${ownerPlaylistClass}`}>
         {track.previewUrl && <AudioPreview previewUrl={track.previewUrl} />}
       </div>
       {ownerId === userId && (

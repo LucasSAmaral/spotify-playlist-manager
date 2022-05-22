@@ -11,7 +11,7 @@ const TrackListComponent = ({
 }) => {
   return (
     <ul className="tracks-list">
-      {hasTracksInfo && <PlaylistHeader />}
+      {hasTracksInfo && <PlaylistHeader ownerId={ownerId} />}
       {!hasTracksInfo && isFetched ? <AddMusicToPlaylist /> : <></>}
       {tracksInfo?.map((tracks) =>
         tracks?.map((track, index) => (
