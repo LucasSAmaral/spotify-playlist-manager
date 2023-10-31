@@ -15,7 +15,7 @@ const initialState = {
   user_uri: "",
 };
 
-const reducer = (state, action) => {
+const reducer = (action) => {
   switch (action.type) {
     case USER_INFORMATION:
       return {
