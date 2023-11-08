@@ -23,7 +23,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "release": "standard-version",
+    "release": "standard-version && git push --follow-tags origin master",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
