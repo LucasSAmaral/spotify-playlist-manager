@@ -9,6 +9,6 @@ publish = "build"
 branch = "master"
 
 [build]
-base = "."
+base = "/"
 publish = "build"
 command = "npm run build"
