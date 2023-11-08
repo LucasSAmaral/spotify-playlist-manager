@@ -17,12 +17,14 @@
     "react-query": "^2.10.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "standard-version": "^9.5.0",
     "styled-components": "^5.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "release": "standard-version",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
