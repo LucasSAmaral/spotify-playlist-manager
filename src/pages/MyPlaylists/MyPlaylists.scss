@@ -10,6 +10,22 @@
   gap: 20px;
   grid-template-columns: repeat(5, 1fr);
 
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 425px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 375px) {
+    grid-template-columns:  1fr;
+  }
+
   .loading {
     height: 70vh;
   }

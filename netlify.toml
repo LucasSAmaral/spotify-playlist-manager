@@ -2,3 +2,8 @@
 base = "."
 publish = "build"
 command = "npm run build"
+
+[context.deploy]
+command = "npm run release"
+publish = "build"
+branch = "master"
