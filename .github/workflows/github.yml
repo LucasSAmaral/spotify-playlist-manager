@@ -1,0 +1,55 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  # cypress:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
+
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: 14
+
+  #     - name: Install dependencies
+  #       run: npm ci
+
+  #     - name: Run Cypress tests
+  #       run: npm run cypress:run
+
+  # jest:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
+
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: 14
+
+  #     - name: Install dependencies
+  #       run: npm ci
+
+  #     - name: Run Jest tests
+  #       run: npm run test
+
+  deploy_to_netlify:
+    if: startsWith(github.ref, 'refs/tags/')
+    # needs:
+    #   - cypress
+    #   - jest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Netlify (Manual)
+        uses: netlify/actions/cli@v1
+        with:
+          args: deploy --prod
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
