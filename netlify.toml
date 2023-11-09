@@ -1,14 +1,5 @@
-[build.environment]
-NODE_VERSION = "10.24.1"
-NPM_VERSION = "6.14.12"
-NPM_FLAGS = "--legacy-peer-deps"
-
-[context.deploy]
-command = "npm install standard-version && npm run release"
-publish = "build"
-branch = "master"
-
 [build]
 base = "/"
 publish = "build"
 command = "npm run build"
+environment = { TRIGGER_MANUAL = "true" }
