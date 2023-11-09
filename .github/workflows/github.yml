@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to Netlify (Manual)
-        uses: netlify/actions/cli@v2
+        uses: netlify/actions/cli@master
         with:
           args: deploy --prod
         env:
