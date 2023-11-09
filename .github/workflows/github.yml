@@ -7,17 +7,15 @@ on:
 
 jobs:
 
-  check_for_new_tag:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Verificar nova tag
-        id: tag_check
-        run: 'echo "Nova tag criada: ${{ github.ref }}"'
+  # check_for_new_tag:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Verificar nova tag
+  #       id: tag_check
+  #       run: 'echo "Nova tag criada: ${{ github.ref }}"'
 
   deploy_to_netlify:
     # if: startsWith(github.ref, 'refs/tags/')
-    needs:
-      - check_for_new_tag
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to Netlify (Manual)
