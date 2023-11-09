@@ -1,5 +1,5 @@
 name: Deploy to Netlify
-#
+
 on:
   create:
     tags:
@@ -28,5 +28,5 @@ jobs:
       - name: Deploy to Netlify
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          TRIGGER_MANUAL: ${{ github.event_name == 'workflow_dispatch' }}
+          TRIGGER_MANUAL: true
         run: npx netlify deploy --prod
